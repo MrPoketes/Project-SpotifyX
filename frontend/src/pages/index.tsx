@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import { Layout } from '../components/Layout/Layout';
-import { SideMenu } from '../components/SideMenu/SideMenu';
+import { MainSection } from '../components/MainSection/MainSection';
+import { Section } from '../components/Section/Section';
 
 export default function Home() {
 	return (
@@ -9,9 +10,12 @@ export default function Home() {
 				<title>SpotifyX</title>
 			</Head>
 			<main>
-				<SideMenu />
 				<Layout>
-					<p>Main area</p>
+					<MainSection header="Home">
+						<Section title="Shortcuts"></Section>
+						<Section title="Recently Played"></Section>
+						<Section title="Popular Playlists"></Section>
+					</MainSection>
 				</Layout>
 			</main>
 		</div>
