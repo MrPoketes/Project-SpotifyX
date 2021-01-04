@@ -25,7 +25,7 @@ export const SideMenu: React.FC<any> = () => {
 					</Button>
 				</a>
 			</Link>
-			<Link href="radio">
+			<Link href="/radio">
 				<a>
 					<Button>
 						<RadioIcon />
@@ -35,42 +35,42 @@ export const SideMenu: React.FC<any> = () => {
 			</Link>
 			{/* Your library navigation */}
 			<h3 className={textStyles}>Your library</h3>
-			<Link href="made-for-you">
+			<Link href="/made-for-you">
 				<a>
 					<Button>
 						<p className="font-semibold">Made for you</p>
 					</Button>
 				</a>
 			</Link>
-			<Link href="recently-played">
+			<Link href="/recently-played">
 				<a>
 					<Button>
 						<p className="font-semibold">Recently Played</p>
 					</Button>
 				</a>
 			</Link>
-			<Link href="liked-songs">
+			<Link href="/liked-songs">
 				<a>
 					<Button>
 						<p className="font-semibold">Liked Songs</p>
 					</Button>
 				</a>
 			</Link>
-			<Link href="albums">
+			<Link href="/albums">
 				<a>
 					<Button>
 						<p className="font-semibold">Albums</p>
 					</Button>
 				</a>
 			</Link>
-			<Link href="artists">
+			<Link href="/artists">
 				<a>
 					<Button>
 						<p className="font-semibold">Artists</p>
 					</Button>
 				</a>
 			</Link>
-			<Link href="podcasts">
+			<Link href="/podcasts">
 				<a>
 					<Button>
 						<p className="font-semibold">Podcasts</p>

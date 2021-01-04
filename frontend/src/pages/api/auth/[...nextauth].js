@@ -4,6 +4,14 @@ require('dotenv').config();
 
 const options = {
 	site: process.env.NEXTAUTH_URL,
+	profile: profile => {
+		return {
+			id: profile.id,
+			name: profile.display_name,
+			email: profile.email,
+			image: profile.images.length > 0 ? profile.images[0].url : undefined
+		};
+	},
 	providers: [
 		Providers.Spotify({
 			clientId: process.env.CLIENT_ID,
@@ -11,17 +19,16 @@ const options = {
 		})
 	],
 	callbacks: {
-		signIn: async (user, account, profile) => {
-			return Promise.resolve(true);
+		async jwt(token, _, account) {
+			if (account) {
+				token.id = account.id;
+				token.accessToken = account.accessToken;
+			}
+			return token;
 		},
-		redirect: async (url, baseUrl) => {
-			return Promise.resolve(baseUrl);
-		},
-		session: async (session, user) => {
-			return Promise.resolve(session);
-		},
-		jwt: async (token, user, account, profile, isNewUser) => {
-			return Promise.resolve(token);
+		async session(session, user) {
+			session.user = user;
+			return session;
 		}
 	}
 };
