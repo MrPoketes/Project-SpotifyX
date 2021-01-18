@@ -7,7 +7,7 @@ const User = gql`
 		followers: Followers
 		href: String
 		id: String
-		images: [Images]
+		images: [Image]
 		type: String
 		uri: String
 	}

@@ -9,10 +9,10 @@ const AudioFeatures = gql`
 		energy: Float
 		id: String
 		instrumentalness: Float
-		key: Integer
+		key: Int
 		liveness: Float
 		loudness: Float
-		mode: Integer
+		mode: Int
 		speechiness: Float
 		tempo: Float
 		time_signature: Int

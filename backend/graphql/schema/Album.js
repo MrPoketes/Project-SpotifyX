@@ -5,7 +5,7 @@ const Album = gql`
 		album_type: String
 		artists: [Artist]
 		available_markets: [String]
-		copyrights: [Copyrights]
+		copyrights: [Copyright]
 		external_ids: ExternalIds
 		external_urls: ExternalUrls
 		genres: [String]

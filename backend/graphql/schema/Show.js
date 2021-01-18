@@ -20,3 +20,4 @@ const Show = gql`
 		uri: String
 	}
 `;
+module.exports = Show;

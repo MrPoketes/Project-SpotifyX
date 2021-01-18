@@ -10,7 +10,7 @@ const Playlist = gql`
 		id: String
 		images: [Image]
 		name: String
-		owner: PublicUser
+		owner: User
 		public: Boolean
 		snapshot_id: String
 		tracks: [PlaylistTrack]
