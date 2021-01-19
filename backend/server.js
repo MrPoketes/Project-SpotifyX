@@ -54,7 +54,7 @@ passport.use(
 					refreshToken: refreshToken,
 					expires_in: expires_in
 				})
-				.then(res => console.log('Write done'))
+				.then(() => console.log('Write done'))
 				.catch(error => console.error(error));
 
 			process.nextTick(() => {
