@@ -52,13 +52,13 @@ const getAlbum = async (token, id) => {
 const getAlbumTracks = async (token, id) => {
 	const url = `https://api.spotify.com/v1/albums/${id}/tracks`;
 	const response = await getResponse(token, url);
-	return response.data;
+	return response.data.items;
 };
 
 const getSeveralAlbums = async (token, ids) => {
 	const url = `https://api.spotify.com/v1/albums?ids=${ids}`;
 	const response = await getResponse(token, url);
-	return response.data;
+	return response.data.albums;
 };
 
 //  Requests for Artists
@@ -66,19 +66,19 @@ const getSeveralAlbums = async (token, ids) => {
 const getArtistAlbums = async (token, id) => {
 	const url = `https://api.spotify.com/v1/artists/${id}/albums`;
 	const response = await getResponse(token, url);
-	return response.data;
+	return response.data.items;
 };
 
 const getArtistsRelatedArtists = async (token, id) => {
 	const url = `https://api.spotify.com/v1/artists/${id}/related-artists`;
 	const response = await getResponse(token, url);
-	return response.data;
+	return response.data.artists;
 };
 
 const getArtistTopTracks = async (token, id, market) => {
 	const url = `https://api.spotify.com/v1/artists/${id}/top-tracks?market=${market}`;
 	const response = await getResponse(token, url);
-	return response.data;
+	return response.data.tracks;
 };
 
 const getArtist = async (token, id) => {
@@ -90,7 +90,7 @@ const getArtist = async (token, id) => {
 const getArtists = async (token, ids) => {
 	const url = `https://api.spotify.com/v1/artists?ids=${ids}`;
 	const response = await getResponse(token, url);
-	return response.data;
+	return response.data.artists;
 };
 
 // Requests for Browse
@@ -104,7 +104,7 @@ const getAvailableGenreSeeds = async token => {
 const getBrowseCategories = async (token, country) => {
 	const url = `https://api.spotify.com/v1/browse/categories?country=${country}`;
 	const response = await getResponse(token, url);
-	return response.data;
+	return response.data.categories.items;
 };
 
 const getBrowseCategory = async (token, id, country) => {
@@ -116,19 +116,19 @@ const getBrowseCategory = async (token, id, country) => {
 const getCategoryPlaylists = async (token, id, country) => {
 	const url = `https://api.spotify.com/v1/browse/categories/${id}/playlists?country=${country}`;
 	const response = await getResponse(token, url);
-	return response.data;
+	return response.data.playlists.items;
 };
 
 const getFeaturedPlaylists = async (token, country) => {
 	const url = `https://api.spotify.com/v1/browse/featured-playlists?country=${country}`;
 	const response = await getResponse(token, url);
-	return response.data;
+	return response.data.playlists.items;
 };
 
 const getNewReleases = async (token, country) => {
 	const url = `https://api.spotify.com/v1/browse/new-releases?country=${country}`;
 	const response = await getResponse(token, url);
-	return response.data;
+	return response.data.albums.items;
 };
 
 const getRecommendations = async (token, seed_artists, seed_genres, seed_tracks) => {
@@ -141,14 +141,14 @@ const getRecommendations = async (token, seed_artists, seed_genres, seed_tracks)
 
 const getEpisode = async (token, id) => {
 	const url = `https://api.spotify.com/v1/episodes/${id}`;
-	const response = await getResponse(token);
+	const response = await getResponse(token, url);
 	return response.data;
 };
 
 const getSeveralEpisodes = async (token, ids) => {
 	const url = `https://api.spotify.com/v1/episodes?ids=${ids}`;
 	const response = await getResponse(token, url);
-	return response.data;
+	return response.data.episodes;
 };
 
 // Requests for Follow
@@ -156,7 +156,7 @@ const getSeveralEpisodes = async (token, ids) => {
 const checkIfUserFollows = async (token, type) => {
 	const url = `https://api.spotify.com/v1/me/following?type=${type}`;
 	const response = await getResponse(token, url);
-	return response.data;
+	return response.data.artists.items;
 };
 
 const checkIfUsersFollowPlaylist = async (token, playlist_id, ids) => {
@@ -167,19 +167,25 @@ const checkIfUsersFollowPlaylist = async (token, playlist_id, ids) => {
 
 const followArtistsOrUsers = async (token, type, ids) => {
 	const url = `https://api.spotify.com/v1/me/following?type=${type}&ids=${ids}`;
-	const response = await getResponse(token, url);
+	const response = await putResponse(token, url);
+	return response.data;
+};
+
+const followPlaylist = async (token, id) => {
+	const url = `https://api.spotify.com/v1/playlists/${id}/followers`;
+	const response = await putResponse(token, url);
 	return response.data;
 };
 
 const unfollowAristsOrUsers = async (token, type, ids) => {
 	const url = `https://api.spotify.com/v1/me/following?type=${type}&ids=${ids}`;
-	const response = await getResponse(token, url);
+	const response = await deleteResponse(token, url);
 	return response.data;
 };
 
 const unfollowPlaylist = async (token, id) => {
 	const url = `https://api.spotify.com/v1/playlists/${id}/followers`;
-	const response = await getResponse(token, url);
+	const response = await deleteResponse(token, url);
 	return response.data;
 };
 
@@ -187,19 +193,19 @@ const unfollowPlaylist = async (token, id) => {
 
 const removeAlbums = async (token, ids) => {
 	const url = `https://api.spotify.com/v1/me/albums?ids=${ids}`;
-	const reponse = await deleteResponse(token, url);
+	const response = await deleteResponse(token, url);
 	return response.data;
 };
 
 const removeSavedShows = async (token, ids) => {
 	const url = `https://api.spotify.com/v1/me/shows?ids=${ids}`;
-	const reponse = await deleteResponse(token, url);
+	const response = await deleteResponse(token, url);
 	return response.data;
 };
 
 const removeTracks = async (token, ids) => {
 	const url = `https://api.spotify.com/v1/me/tracks?ids=${ids}`;
-	const reponse = await deleteResponse(token, url);
+	const response = await deleteResponse(token, url);
 	return response.data;
 };
 
@@ -224,19 +230,19 @@ const checkSavedTracks = async (token, ids) => {
 const getSavedAlbums = async token => {
 	const url = 'https://api.spotify.com/v1/me/albums';
 	const response = await getResponse(token, url);
-	return response.data;
+	return response.data.items;
 };
 
 const getSavedShows = async token => {
 	const url = 'https://api.spotify.com/v1/me/shows';
 	const response = await getResponse(token, url);
-	return response.data;
+	return response.data.items;
 };
 
 const getSavedTracks = async token => {
 	const url = 'https://api.spotify.com/v1/me/tracks';
 	const response = await getResponse(token, url);
-	return response.data;
+	return response.data.items;
 };
 
 const saveAlbums = async (token, ids) => {
@@ -262,7 +268,7 @@ const saveTracks = async (token, ids) => {
 const getTopArtistsAndTracks = async (token, type) => {
 	const url = `https://api.spotify.com/v1/me/top/${type}`;
 	const response = await getResponse(token, url);
-	return response.data;
+	return JSON.stringify(response.data);
 };
 
 // Requests for Player
@@ -270,7 +276,7 @@ const getTopArtistsAndTracks = async (token, type) => {
 const getRecentlyPlayedTracks = async token => {
 	const url = 'https://api.spotify.com/v1/me/player/recently-played';
 	const response = await getResponse(token, url);
-	return response.data;
+	return response.data.items;
 };
 
 const getInfoCurrentPlayback = async token => {
@@ -282,23 +288,24 @@ const getInfoCurrentPlayback = async token => {
 const getAvailableDevices = async token => {
 	const url = 'https://api.spotify.com/v1/me/player/devices';
 	const response = await getResponse(token, url);
-	return response.data;
+	return response.data.devices;
 };
 
 const getCurrentlyPlayingTrack = async (token, market) => {
 	const url = `https://api.spotify.com/v1/me/player/currently-playing?market=${market}`;
 	const response = await getResponse(token, url);
-	return response.data;
+	const result = JSON.stringify(response.data);
+	return result;
 };
 
-const skipToNextTrack = async (token, id) => {
-	const url = `https://api.spotify.com/v1/me/player/next?device_id=${id}`;
+const skipToNextTrack = async token => {
+	const url = 'https://api.spotify.com/v1/me/player/next';
 	const response = await postResponse(token, url);
 	return response.data;
 };
 
-const skipToPreviousTrack = async (token, id) => {
-	const url = `https://api.spotify.com/v1/me/player/previous?device_id=${id}`;
+const skipToPreviousTrack = async token => {
+	const url = 'https://api.spotify.com/v1/me/player/previous';
 	const response = await postResponse(token, url);
 	return response.data;
 };
@@ -321,20 +328,20 @@ const play = async (token, id) => {
 	return response.data;
 };
 
-const repeat = async (token, state, id) => {
-	const url = `https://api.spotify.com/v1/me/player/repeat?state=${state}&device_id=${id}`;
+const repeat = async (token, state) => {
+	const url = `https://api.spotify.com/v1/me/player/repeat?state=${state}`;
 	const response = await putResponse(token, url);
 	return response.data;
 };
 
-const seek = async (token, position, id) => {
-	const url = `https://api.spotify.com/v1/me/player/seek?position_ms=${position}&device_id=${id}`;
+const seek = async (token, position) => {
+	const url = `https://api.spotify.com/v1/me/player/seek?position_ms=${position}`;
 	const response = await putResponse(token, url);
 	return response.data;
 };
 
-const shuffle = async (token, state, id) => {
-	const url = `https://api.spotify.com/v1/me/player/shuffle?state=${state}&device_id=${id}`;
+const shuffle = async (token, state) => {
+	const url = `https://api.spotify.com/v1/me/player/shuffle?state=${state}`;
 	const response = await putResponse(token, url);
 	return response.data;
 };
@@ -355,13 +362,13 @@ const removePlaylistItems = async (token, id, body) => {
 		headers: makeHeaders(token),
 		data: body
 	});
-	return response.data;
+	return response.data.snapshot_id;
 };
 
 const getCurrentUserPlaylists = async token => {
 	const url = 'https://api.spotify.com/v1/me/playlists';
 	const response = await getResponse(token, url);
-	return response.data;
+	return response.data.items;
 };
 
 const getPlaylistImage = async (token, id) => {
@@ -373,7 +380,7 @@ const getPlaylistImage = async (token, id) => {
 const getPlaylistItems = async (token, id, market) => {
 	const url = `https://api.spotify.com/v1/playlists/${id}/tracks?market=${market}`;
 	const response = await getResponse(token, url);
-	return response.data;
+	return JSON.stringify(response.data);
 };
 
 const getPlaylist = async (token, id) => {
@@ -385,13 +392,13 @@ const getPlaylist = async (token, id) => {
 const getUserPlaylists = async (token, id) => {
 	const url = `https://api.spotify.com/v1/users/${id}/playlists`;
 	const response = await getResponse(token, url);
-	return response.data;
+	return response.data.items;
 };
 
 const addItemsToPlaylist = async (token, id, position, uris) => {
 	const url = `https://api.spotify.com/v1/playlists/${id}/tracks?position=${position}&uris=${uris}`;
 	const response = await postResponse(token, url);
-	return response.data;
+	return response.data.snapshot_id;
 };
 
 const createPlaylist = async (token, id, body) => {
@@ -424,7 +431,7 @@ const modifyPlaylistDetails = async (token, id, body) => {
 		headers: makeHeaders(token),
 		data: body
 	});
-	return response.data;
+	return JSON.stringify(response.data);
 };
 
 // Requests for Search
@@ -432,7 +439,7 @@ const modifyPlaylistDetails = async (token, id, body) => {
 const search = async (token, query, type) => {
 	const url = `https://api.spotify.com/v1/search?q=${query}&type=${type}`;
 	const response = await getResponse(token, url);
-	return response.data;
+	return JSON.stringify(response.data);
 };
 
 // Requests for Tracks
@@ -446,7 +453,7 @@ const getAudioAnalysis = async (token, id) => {
 const getAudioFeaturesSeveralTracks = async (token, ids) => {
 	const url = `https://api.spotify.com/v1/audio-features?ids=${ids}`;
 	const response = await getResponse(token, url);
-	return response.data;
+	return response.data.audio_features;
 };
 
 const getAudioFeaturesTrack = async (token, id) => {
@@ -458,11 +465,11 @@ const getAudioFeaturesTrack = async (token, id) => {
 const getTracks = async (token, ids) => {
 	const url = `https://api.spotify.com/v1/tracks?ids=${ids}`;
 	const response = await getResponse(token, url);
-	return response.data;
+	return response.data.tracks;
 };
 
 const getTrack = async (token, id) => {
-	const url = `https://api.spotify.com/v1/tracks?${id}`;
+	const url = `https://api.spotify.com/v1/tracks/${id}`;
 	const response = await getResponse(token, url);
 	return response.data;
 };
@@ -472,13 +479,13 @@ const getTrack = async (token, id) => {
 const getShows = async (token, ids) => {
 	const url = `https://api.spotify.com/v1/shows?ids=${ids}`;
 	const response = await getResponse(token, url);
-	return response.data;
+	return response.data.shows;
 };
 
 const getShowEpisodes = async (token, id) => {
 	const url = `https://api.spotify.com/v1/shows/${id}/episodes`;
 	const response = await getResponse(token, url);
-	return response.data;
+	return response.data.items;
 };
 
 const getShow = async (token, id) => {
@@ -546,6 +553,7 @@ module.exports = {
 	unfollowAristsOrUsers,
 	unfollowPlaylist,
 	followArtistsOrUsers,
+	followPlaylist,
 	checkIfUserFollows,
 	checkIfUsersFollowPlaylist,
 	checkSavedAlbums,

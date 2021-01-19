@@ -6,4 +6,4 @@ const SavedTrack = gql`
 		track: Track
 	}
 `;
-module.exports = Track;
+module.exports = SavedTrack;

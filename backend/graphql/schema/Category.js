@@ -6,6 +6,7 @@ const Category = gql`
 		icons: [Image]
 		id: String
 		name: String
+		items: [Category]
 	}
 `;
 module.exports = Category;
