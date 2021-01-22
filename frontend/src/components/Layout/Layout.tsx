@@ -6,7 +6,7 @@ export const Layout: React.FC<any> = props => {
 	return (
 		<div>
 			<SideMenu />
-			<div className="text-white" style={{ marginLeft: '10%' }}>
+			<div className="text-white" style={{ marginLeft: '11%' }}>
 				<TopNavigation />
 				{props.children}
 			</div>
