@@ -6,7 +6,6 @@ const { ApolloServer, gql } = require('apollo-server-express');
 const resolvers = require('./graphql/resolvers/index.js');
 const typeDefs = require('./graphql/schema/typeDefs');
 const jsonfile = require('jsonfile');
-const authRoutes = require('./routes/authentication');
 const axios = require('axios');
 const qs = require('qs');
 require('dotenv').config();
@@ -25,7 +24,8 @@ const server = new ApolloServer({
 		return { accessToken: data.accessToken };
 	}
 });
-
+app.use(passport.initialize());
+app.use(passport.session());
 server.applyMiddleware({ app });
 
 /**
@@ -42,35 +42,75 @@ passport.deserializeUser((obj, done) => {
 	done(null, obj);
 });
 
-const spotifyStrategy = new SpotifyStrategy(
-	{
-		clientID: process.env.SPOTIFY_CLIENT_ID,
-		clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
-		callbackURL: redirect_uri
-	},
-	(accessToken, refreshToken, expires_in, profile, done) => {
-		jsonfile
-			.writeFile('token.json', {
-				accessToken: accessToken,
-				refreshToken: refreshToken,
-				expires_in: expires_in
-			})
-			.then(() => console.log('Write done'))
-			.catch(error => console.error(error));
+let token = '';
 
-		process.nextTick(() => {
-			return done(null, profile);
-		});
+passport.use(
+	new SpotifyStrategy(
+		{
+			clientID: process.env.SPOTIFY_CLIENT_ID,
+			clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
+			callbackURL: redirect_uri
+		},
+		(accessToken, refreshToken, expires_in, profile, done) => {
+			token = accessToken;
+			jsonfile
+				.writeFile('token.json', {
+					accessToken: accessToken,
+					refreshToken: refreshToken,
+					expires_in: expires_in
+				})
+				.then(() => console.log('Write done'))
+				.catch(error => console.error(error));
+
+			process.nextTick(() => {
+				return done(null, profile);
+			});
+		}
+	)
+);
+
+app.get(
+	'/auth/spotify',
+	passport.authenticate('spotify', {
+		scope: [
+			'user-read-private',
+			'user-read-email',
+			'ugc-image-upload',
+			'user-read-recently-played',
+			'user-top-read',
+			'user-read-playback-position',
+			'user-read-playback-state',
+			'user-modify-playback-state',
+			'user-read-currently-playing',
+			'app-remote-control',
+			'streaming',
+			'playlist-modify-public',
+			'playlist-modify-private',
+			'playlist-read-private',
+			'playlist-read-collaborative',
+			'user-follow-modify',
+			'user-follow-read',
+			'user-library-modify',
+			'user-library-read',
+			'user-read-email',
+			'user-read-private'
+		],
+		showDialog: true
+	})
+);
+
+app.get(
+	'/auth/spotify/callback',
+	passport.authenticate('spotify', { failureRedirect: '/' }),
+	(req, res) => {
+		res.redirect('http://localhost:3000' + '?access_token=' + token);
 	}
 );
-passport.use(spotifyStrategy);
-
 /**
  * Refreshes token after 3500 seconds
  */
 
 if (jsonfile.readFileSync('token.json').accessToken) {
-	console.log('here');
 	setInterval(async () => {
 		const data = jsonfile.readFileSync('token.json');
 		const response = await axios({
@@ -102,9 +142,6 @@ if (jsonfile.readFileSync('token.json').accessToken) {
  */
 
 app.use(cors());
-app.use(passport.initialize());
-app.use(passport.session());
-app.use('/auth', authRoutes);
 
 app.listen(PORT, () =>
 	console.log(

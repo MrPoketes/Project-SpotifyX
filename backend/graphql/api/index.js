@@ -102,19 +102,34 @@ const getAvailableGenreSeeds = async token => {
 };
 
 const getBrowseCategories = async (token, country) => {
-	const url = `https://api.spotify.com/v1/browse/categories?country=${country}`;
+	let url = '';
+	if (country !== '') {
+		url = `https://api.spotify.com/v1/browse/categories?country=${country}`;
+	} else {
+		url = 'https://api.spotify.com/v1/browse/categories';
+	}
 	const response = await getResponse(token, url);
 	return response.data.categories.items;
 };
 
 const getBrowseCategory = async (token, id, country) => {
-	const url = `https://api.spotify.com/v1/browse/categories/${id}?country=${country}`;
+	let url = '';
+	if (country !== '') {
+		url = `https://api.spotify.com/v1/browse/categories/${id}?country=${country}`;
+	} else {
+		url = `https://api.spotify.com/v1/browse/categories/${id}`;
+	}
 	const response = await getResponse(token, url);
 	return response.data;
 };
 
 const getCategoryPlaylists = async (token, id, country) => {
-	const url = `https://api.spotify.com/v1/browse/categories/${id}/playlists?country=${country}`;
+	let url = '';
+	if (country !== '') {
+		url = `https://api.spotify.com/v1/browse/categories/${id}/playlists?country=${country}`;
+	} else {
+		url = `https://api.spotify.com/v1/browse/categories/${id}/playlists`;
+	}
 	const response = await getResponse(token, url);
 	return response.data.playlists.items;
 };
