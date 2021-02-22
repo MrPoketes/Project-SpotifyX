@@ -8,7 +8,7 @@ export const TopNavigation: React.FC<any> = () => {
 	const { loading, error, data } = useQuery(GET_ME_DATA);
 
 	return (
-		<div className="flex sticky top-0  bg-gray-800 py-3">
+		<div className="flex sticky top-0  bg-gray-800 py-3 z-50">
 			{data !== undefined && (
 				<>
 					<div className="flex">

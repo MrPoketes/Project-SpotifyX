@@ -58,3 +58,15 @@ export const GET_NEW_RELEASES = gql`
 		}
 	}
 `;
+
+export const GET_FEATURED_PLAYLISTS = gql`
+	query featuredPlaylists($country: String) {
+		getFeaturedPlaylists(country: $country) {
+			name
+			images {
+				url
+			}
+			id
+		}
+	}
+`;

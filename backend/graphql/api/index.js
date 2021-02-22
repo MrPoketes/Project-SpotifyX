@@ -135,7 +135,12 @@ const getCategoryPlaylists = async (token, id, country) => {
 };
 
 const getFeaturedPlaylists = async (token, country) => {
-	const url = `https://api.spotify.com/v1/browse/featured-playlists?country=${country}`;
+	let url = '';
+	if (country === '') {
+		url = 'https://api.spotify.com/v1/browse/featured-playlists';
+	} else {
+		url = `https://api.spotify.com/v1/browse/featured-playlists?country=${country}`;
+	}
 	const response = await getResponse(token, url);
 	return response.data.playlists.items;
 };
