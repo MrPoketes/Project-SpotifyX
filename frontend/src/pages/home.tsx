@@ -12,6 +12,7 @@ import {
 import { formatArtistNames } from '../utilities/formatArtistNames';
 import { useQuery } from '@apollo/client';
 import { ItemCarousel } from '../components/ItemCarousel/ItemCarousel';
+import { LoadingIcon } from '../components/Icons/Icons';
 
 export default function Home() {
 	const { loading: loadingRP, error: errorRP, data: recentlyPlayed } = useQuery(
@@ -35,7 +36,7 @@ export default function Home() {
 				<Layout>
 					<MainSection header="Home">
 						<Section title="Recently Played">
-							{recentlyPlayed && (
+							{recentlyPlayed ? (
 								<ItemCarousel noToShow={6} noToScrool={2}>
 									{recentlyPlayed.getRecentlyPlayed.map(
 										(track, i) => (
@@ -51,10 +52,14 @@ export default function Home() {
 										)
 									)}
 								</ItemCarousel>
+							) : (
+								<div className="flex justify-center w-full p-10">
+									<LoadingIcon className="w-16 h-16" />
+								</div>
 							)}
 						</Section>
 						<Section title="New Releases">
-							{newReleases && (
+							{newReleases ? (
 								<ItemCarousel noToShow={6} noToScrool={2}>
 									{newReleases.getNewReleases.map((release, i) => (
 										<Card
@@ -68,10 +73,14 @@ export default function Home() {
 										/>
 									))}
 								</ItemCarousel>
+							) : (
+								<div className="flex justify-center w-full p-10">
+									<LoadingIcon className="w-16 h-16" />
+								</div>
 							)}
 						</Section>
 						<Section title="Featured Playlists">
-							{featuredPlaylists && (
+							{featuredPlaylists ? (
 								<ItemCarousel noToShow={6} noToScrool={2}>
 									{featuredPlaylists.getFeaturedPlaylists.map(
 										(playlist, i) => (
@@ -84,6 +93,10 @@ export default function Home() {
 										)
 									)}
 								</ItemCarousel>
+							) : (
+								<div className="flex justify-center w-full p-10">
+									<LoadingIcon className="w-16 h-16" />
+								</div>
 							)}
 						</Section>
 					</MainSection>

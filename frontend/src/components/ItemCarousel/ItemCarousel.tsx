@@ -20,12 +20,12 @@ export const ItemCarousel: React.FC<ItemCarouselInterface> = ({
 		}}
 		renderCenterLeftControls={({ previousSlide }) => (
 			<button onClick={previousSlide} className="focus:outline-none">
-				<LeftIcon />
+				<LeftIcon className="w-10 h-10" />
 			</button>
 		)}
 		renderCenterRightControls={({ nextSlide }) => (
-			<button onClick={nextSlide} className="focus:outline-none">
-				<RightIcon />
+			<button onClick={nextSlide} className="focus:outline-none mr-5">
+				<RightIcon className="w-10 h-10" />
 			</button>
 		)}
 	>

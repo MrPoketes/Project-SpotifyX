@@ -145,3 +145,15 @@ export const HorizontalDotsIcon = props => (
 		/>
 	</svg>
 );
+
+export const LoadingIcon = props => (
+	<svg
+		viewBox="0 0 24 24"
+		className={`w-5 h-5 animate-spin text-white ${props.className}`}
+	>
+		<path
+			className="fill-current"
+			d="M12,4V2C6.48,2 2,6.48 2,12H4C4,7.58 7.58,4 12,4Z"
+		/>
+	</svg>
+);
