@@ -3,9 +3,8 @@ import Link from 'next/link';
 import { Button } from '../Button/Button';
 import { HomeIcon, BrowseIcon, RadioIcon } from '../Icons/Icons';
 import { useRouter } from 'next/dist/client/router';
-import { route } from 'next/dist/next-server/server/router';
 
-export const SideMenu: React.FC<any> = props => {
+export const SideMenu: React.FC = () => {
 	const router = useRouter();
 	const textStyles = 'mt-5 text-gray-500 pl-3 ml-4';
 

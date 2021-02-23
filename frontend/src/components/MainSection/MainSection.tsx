@@ -1,10 +1,13 @@
 import React from 'react';
 
-export const MainSection: React.FC<any> = props => {
+interface MainSectionInterface {
+	header: string;
+}
+export const MainSection: React.FC<MainSectionInterface> = ({ children, header }) => {
 	return (
 		<div className="mt-20">
-			<h1 className="text-5xl font-bold">{props.header}</h1>
-			{props.children}
+			<h1 className="text-5xl font-bold">{header}</h1>
+			{children}
 		</div>
 	);
 };

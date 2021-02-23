@@ -70,3 +70,9 @@ export const GET_FEATURED_PLAYLISTS = gql`
 		}
 	}
 `;
+
+export const GET_TOP_ARTISTS_OR_TRACKS = gql`
+	query topArtistsTracks($type: String!) {
+		getTopArtistsTracks(type: $type)
+	}
+`;

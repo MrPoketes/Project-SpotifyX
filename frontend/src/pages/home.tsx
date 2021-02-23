@@ -7,7 +7,8 @@ import { Card } from '../components/Card/Card';
 import {
 	GET_RECENTLY_PLAYED,
 	GET_NEW_RELEASES,
-	GET_FEATURED_PLAYLISTS
+	GET_FEATURED_PLAYLISTS,
+	GET_TOP_ARTISTS_OR_TRACKS
 } from '../queries/homePageQuery';
 import { formatArtistNames } from '../utilities/formatArtistNames';
 import { useQuery } from '@apollo/client';
@@ -26,6 +27,11 @@ export default function Home() {
 		error: errorFP,
 		data: featuredPlaylists
 	} = useQuery(GET_FEATURED_PLAYLISTS, { variables: { country: '' } });
+	const {
+		loading: loadingTA,
+		error: errorTA,
+		data: topArtists
+	} = useQuery(GET_TOP_ARTISTS_OR_TRACKS, { variables: { type: 'artists' } });
 
 	return (
 		<div className="pb-10">
@@ -92,6 +98,32 @@ export default function Home() {
 											/>
 										)
 									)}
+								</ItemCarousel>
+							) : (
+								<div className="flex justify-center w-full p-10">
+									<LoadingIcon className="w-16 h-16" />
+								</div>
+							)}
+						</Section>
+						<Section title="Top Artists">
+							{topArtists ? (
+								<ItemCarousel noToShow={6} noToScrool={2}>
+									{JSON.parse(
+										topArtists.getTopArtistsTracks
+									).items.map((item, i) => (
+										<Card
+											artistId={item.id}
+											artist={true}
+											key={i}
+											header={item.name}
+											text={
+												new Intl.NumberFormat('en').format(
+													item.followers.total
+												) + ' followers'
+											}
+											image={item.images[0].url}
+										/>
+									))}
 								</ItemCarousel>
 							) : (
 								<div className="flex justify-center w-full p-10">

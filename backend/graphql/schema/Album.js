@@ -15,7 +15,7 @@ const Album = gql`
 		label: String
 		name: String
 		popularity: Int
-		release_data: String
+		release_date: String
 		release_date_precision: String
 		tracks: [Track]
 		type: String

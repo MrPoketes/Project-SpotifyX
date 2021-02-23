@@ -98,7 +98,7 @@ const getArtists = async (token, ids) => {
 const getAvailableGenreSeeds = async token => {
 	const url = 'https://api.spotify.com/v1/recommendations/available-genre-seeds';
 	const response = await getResponse(token, url);
-	return response.data;
+	return response.data.genres;
 };
 
 const getBrowseCategories = async (token, country) => {

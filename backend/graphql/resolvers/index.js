@@ -119,9 +119,12 @@ const resolvers = {
 			}
 			return null;
 		},
-		// TODO: Maybe implement if needed
-		// getRecommendationGenres
-
+		getRecommendationGenres: (parent, args, ctx, info) => {
+			if (checkToken(ctx.accessToken)) {
+				return actions.getAvailableGenreSeeds(ctx.accessToken);
+			}
+			return null;
+		},
 		getEpisodes: (parent, args, ctx, info) => {
 			if (checkToken(ctx.accessToken)) {
 				return actions.getSeveralEpisodes(ctx.accessToken, args.ids);

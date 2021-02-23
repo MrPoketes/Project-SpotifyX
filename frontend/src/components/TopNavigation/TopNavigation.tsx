@@ -4,7 +4,7 @@ import { SearchBar } from '../SearchBar/SearchBar';
 import { useQuery } from '@apollo/client';
 import { GET_ME_DATA } from '../../queries/userQuery';
 
-export const TopNavigation: React.FC<any> = () => {
+export const TopNavigation: React.FC = () => {
 	const { loading, error, data } = useQuery(GET_ME_DATA);
 
 	return (
