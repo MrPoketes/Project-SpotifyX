@@ -14,3 +14,9 @@ export const GET_ARTIST = gql`
 		}
 	}
 `;
+
+export const CHECK_FOLLOWS_ARTIST = gql`
+	query followsArtist($id: String!) {
+		checkIfUserFollows(type: "artist", id: $id)
+	}
+`;

@@ -7,6 +7,7 @@ export const GET_ME_DATA = gql`
 			images {
 				url
 			}
+			id
 			type
 		}
 	}
