@@ -95,6 +95,7 @@ export default function Home() {
 												header={playlist.name}
 												text=""
 												image={playlist.images[0].url}
+												playlistId={playlist.id}
 											/>
 										)
 									)}
@@ -105,7 +106,7 @@ export default function Home() {
 								</div>
 							)}
 						</Section>
-						<Section title="Top Artists">
+						<Section title="Your Top Artists">
 							{topArtists ? (
 								<ItemCarousel noToShow={6} noToScrool={2}>
 									{JSON.parse(

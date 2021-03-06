@@ -8,7 +8,11 @@ export default function Radio() {
 				<title>SpotifyX</title>
 			</Head>
 			<main>
-				<Layout>Radio</Layout>
+				<Layout>
+					<h1 className="text-center mt-5 text-4xl">
+						Currently Not Supported. Sorry :(
+					</h1>
+				</Layout>
 			</main>
 		</div>
 	);
