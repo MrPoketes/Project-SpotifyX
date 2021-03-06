@@ -1,7 +1,14 @@
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import React from 'react';
+import { REMOVE_ALBUM, SAVE_ALBUM } from '../../queries/saveMutations';
 import { CHECK_SAVED_ALBUMS, GET_ALBUM_TRACKS } from '../../queries/songQuery';
-import { HeartOutlinedIcon, HeartSolidIcon, HorizontalDotsIcon } from '../Icons/Icons';
+import {
+	ClockIcon,
+	HeartOutlinedIcon,
+	HeartSolidIcon,
+	HorizontalDotsIcon,
+	ThumbsUpIcon
+} from '../Icons/Icons';
 import { TrackList } from '../TrackList/TrackList';
 
 interface AlbumContainer {
@@ -22,6 +29,11 @@ export const AlbumContainer: React.FC<AlbumContainer> = props => {
 		data: check
 	} = useQuery(CHECK_SAVED_ALBUMS, { variables: { ids: props.id } });
 
+	const [saveAlbum, { data: save }] = useMutation(SAVE_ALBUM);
+
+	const [removeAlbum, { data: remove }] = useMutation(REMOVE_ALBUM);
+
+	const columns = ['#', 'Title', <ClockIcon />, <ThumbsUpIcon />];
 	return (
 		<div className="block mb-10">
 			<div className="flex">
@@ -36,9 +48,25 @@ export const AlbumContainer: React.FC<AlbumContainer> = props => {
 							{check ? (
 								<>
 									{check.checkUsersSavedAlbums[0] ? (
-										<HeartSolidIcon />
+										<div
+											onClick={() => {
+												removeAlbum({
+													variables: { id: props.id }
+												});
+											}}
+										>
+											<HeartSolidIcon />
+										</div>
 									) : (
-										<HeartOutlinedIcon />
+										<div
+											onClick={() => {
+												saveAlbum({
+													variables: { id: props.id }
+												});
+											}}
+										>
+											<HeartOutlinedIcon />
+										</div>
 									)}
 								</>
 							) : (
@@ -51,7 +79,13 @@ export const AlbumContainer: React.FC<AlbumContainer> = props => {
 					</div>
 				</div>
 			</div>
-			{data && <TrackList trackData={data.getAlbumTracks} />}
+			{data && (
+				<TrackList
+					columns={columns}
+					trackData={data.getAlbumTracks}
+					type="track"
+				/>
+			)}
 		</div>
 	);
 };
