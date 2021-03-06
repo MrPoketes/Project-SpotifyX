@@ -126,7 +126,12 @@ const typeDefs = gql`
 		reorderPlaylist: String
 		removeItemPlaylist(id: String, body: TrackInput): String
 		changePlaylistDetails(id: String, body: PlaylistBodyInput): String
-		createPlaylist(id: String, body: PlaylistBodyInput): Playlist
+		createPlaylist(
+			id: String
+			name: String
+			description: String
+			public: Boolean
+		): Playlist
 
 		addToQueue(uri: String, id: String): String
 		startPlayer(id: String): String

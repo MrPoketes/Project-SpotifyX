@@ -11,7 +11,7 @@ export const Layout: React.FC = ({ children }) => {
 		<div>
 			{data && (
 				<>
-					<SideMenu />
+					<SideMenu id={data.getMe.id} />
 					<div className="text-white" style={{ marginLeft: '11%' }}>
 						<TopNavigation
 							image={data.getMe.images[0].url}

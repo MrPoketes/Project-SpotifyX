@@ -324,7 +324,13 @@ const resolvers = {
 	Mutation: {
 		createPlaylist: (parent, args, ctx, info) => {
 			if (checkToken(ctx.accessToken)) {
-				return actions.createPlaylist(ctx.accessToken, args.id, args.body);
+				return actions.createPlaylist(
+					ctx.accessToken,
+					args.id,
+					args.name,
+					args.description,
+					args.public
+				);
 			}
 			return null;
 		},

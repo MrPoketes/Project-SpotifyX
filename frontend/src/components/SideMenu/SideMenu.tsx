@@ -4,10 +4,14 @@ import { HomeIcon, BrowseIcon, RadioIcon, PlusCircleIcon } from '../Icons/Icons'
 import { useRouter } from 'next/dist/client/router';
 import { useQuery } from '@apollo/client';
 import { GET_ME_PLAYLISTS } from '../../queries/playlistQuery';
-import ReactScrollableList from 'react-scrollable-list';
 import { Scroller } from '../Scroller/Scroller';
+import { PlaylistButton } from '../Playlist/helpers/PlaylistButton';
 
-export const SideMenu: React.FC = () => {
+interface SideMenuInterface {
+	id: string;
+}
+
+export const SideMenu: React.FC<SideMenuInterface> = props => {
 	const router = useRouter();
 	const textStyles = 'mt-5 text-gray-500 pl-3 ';
 	const { loading, error, data } = useQuery(GET_ME_PLAYLISTS);
@@ -135,10 +139,7 @@ export const SideMenu: React.FC = () => {
 					<div></div>
 				)}
 			</div>
-			<button className="text-gray-500 hover:text-white mt-5 ml-4 flex font-semibold cursor-pointer focus:outline-none">
-				<PlusCircleIcon />
-				<h1 className="ml-2">New Playlist</h1>
-			</button>
+			<PlaylistButton id={props.id} />
 		</div>
 	);
 };

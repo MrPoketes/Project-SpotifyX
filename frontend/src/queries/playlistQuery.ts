@@ -33,3 +33,21 @@ export const GET_PLAYLIST = gql`
 		}
 	}
 `;
+
+export const CREATE_PLAYLIST = gql`
+	mutation createPlaylist(
+		$id: String!
+		$name: String!
+		$description: String
+		$public: Boolean
+	) {
+		createPlaylist(
+			id: $id
+			name: $name
+			description: $description
+			public: $public
+		) {
+			id
+		}
+	}
+`;

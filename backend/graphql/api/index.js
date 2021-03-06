@@ -432,7 +432,12 @@ const addItemsToPlaylist = async (token, id, position, uris) => {
 	return response.data.snapshot_id;
 };
 
-const createPlaylist = async (token, id, body) => {
+const createPlaylist = async (token, id, name, description, public) => {
+	const body = {
+		name,
+		description,
+		public
+	};
 	const url = `https://api.spotify.com/v1/users/${id}/playlists`;
 	const response = await axios({
 		method: 'POST',
