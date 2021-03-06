@@ -1,5 +1,7 @@
 export interface TrackListInterface {
-	trackData: TrackInterface[];
+	trackData: (TrackInterface | PlaylistInterface)[];
+	type: 'playlist' | 'track';
+	columns: (string | JSX.Element)[];
 }
 
 export interface TrackInterface {
@@ -8,4 +10,16 @@ export interface TrackInterface {
 	id: string;
 	name: string;
 	uri: string;
+}
+
+export interface PlaylistInterface {
+	duration_ms: number;
+	album: {
+		name: string;
+	};
+	artists: string[];
+	name: string;
+	id: string;
+	uri: string;
+	releaseDate: string;
 }
