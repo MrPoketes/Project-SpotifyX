@@ -173,10 +173,16 @@ const getSeveralEpisodes = async (token, ids) => {
 
 // Requests for Follow
 
-const checkIfUserFollows = async (token, type) => {
+const getFollowedArtists = async (token, type) => {
 	const url = `https://api.spotify.com/v1/me/following?type=${type}`;
 	const response = await getResponse(token, url);
 	return response.data.artists.items;
+};
+
+const checkIfUserFollows = async (token, type, id) => {
+	const url = `https://api.spotify.com/v1/me/following/contains?type=${type}&ids=${id}`;
+	const response = await getResponse(token, url);
+	return response.data;
 };
 
 const checkIfUsersFollowPlaylist = async (token, playlist_id, ids) => {
@@ -406,7 +412,12 @@ const getPlaylistItems = async (token, id, market) => {
 const getPlaylist = async (token, id) => {
 	const url = `https://api.spotify.com/v1/playlists/${id}`;
 	const response = await getResponse(token, url);
-	return response.data;
+	let result = { ...response.data };
+	result.tracks = [...response.data.tracks.items];
+	result.tracks.forEach((track, i) => {
+		result.tracks[i].track = JSON.stringify(result.tracks[i].track);
+	});
+	return result;
 };
 
 const getUserPlaylists = async (token, id) => {
@@ -575,6 +586,7 @@ module.exports = {
 	followArtistsOrUsers,
 	followPlaylist,
 	checkIfUserFollows,
+	getFollowedArtists,
 	checkIfUsersFollowPlaylist,
 	checkSavedAlbums,
 	checkSavedShows,

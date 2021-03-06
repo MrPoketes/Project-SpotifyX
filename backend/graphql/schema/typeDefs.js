@@ -103,6 +103,7 @@ const typeDefs = gql`
 		getAudioFeaturesTrack(id: String): AudioFeatures
 
 		getUser(id: String): User
+		checkIfUserFollows(type: String, id: String): [Boolean]
 	}
 
 	input PlaylistBodyInput {

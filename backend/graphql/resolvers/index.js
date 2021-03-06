@@ -150,7 +150,14 @@ const resolvers = {
 		},
 		getFollowedArtists: (parent, args, ctx, info) => {
 			if (checkToken(ctx.accessToken)) {
-				return actions.checkIfUserFollows(ctx.accessToken, args.type);
+				return null;
+				// return actions.checkIfUserFollows(ctx.accessToken, args.type);
+			}
+			return null;
+		},
+		checkIfUserFollows: (parent, args, ctx, info) => {
+			if (checkToken(ctx.accessToken)) {
+				return actions.checkIfUserFollows(ctx.accessToken, args.type, args.id);
 			}
 			return null;
 		},

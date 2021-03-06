@@ -6,7 +6,7 @@ const PlaylistTrack = gql`
 		added_at: String
 		added_by: User
 		is_local: PlaylistTrackItems
-		track: Items
+		track: String
 	}
 `;
 module.exports = PlaylistTrack;
