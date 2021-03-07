@@ -22,6 +22,9 @@
 		@apply bg-gray-900;
 		@apply rounded-full;
 	}
+	button:focus {
+		@apply outline-none;
+	}
 }
 
 .remove-opacity {
@@ -29,4 +32,19 @@
 }
 li.slider-slide:focus {
 	outline: none;
+}
+div.bm-item:focus {
+	outline: none;
+}
+div.bm-menu {
+	overflow: hidden !important;
+}
+.hover-opacity:hover img {
+	opacity: 0.3;
+}
+.hover-opacity:hover .card-buttons {
+	visibility: visible;
+}
+.card-buttons {
+	visibility: hidden;
 }

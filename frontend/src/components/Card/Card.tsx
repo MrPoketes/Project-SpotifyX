@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { HeartOutlinedIcon, HorizontalDotsIcon, PlayIcon } from '../Icons/Icons';
 import Link from 'next/link';
 interface CardInterface {
@@ -11,7 +11,6 @@ interface CardInterface {
 }
 
 export const Card: React.FC<CardInterface> = props => {
-	const [buttons, showButtons] = useState('invisible');
 	let href = '';
 	let hrefAs = '';
 	if (props.artistId) {
@@ -24,18 +23,16 @@ export const Card: React.FC<CardInterface> = props => {
 	return (
 		<Link href={href} as={hrefAs}>
 			<div className="mr-5">
-				<div
-					className="flex transition ease-in-out relative cursor-pointer" // hover:opacity-30
-					onMouseEnter={() => showButtons('visible')}
-					onMouseLeave={() => showButtons('invisible')}
-				>
+				<div className="flex relative cursor-pointer hover-opacity">
 					<img
 						src={props.image}
-						className={props.artist ? 'rounded-full' : ''}
+						className={
+							props.artist
+								? 'rounded-full transition ease-in-out'
+								: 'transition ease-in-out'
+						}
 					/>
-					<div
-						className={`flex absolute left-14 mr-16 top-20 ${buttons} cursor-default`}
-					>
+					<div className="flex absolute cursor-default h-1/2 w-full justify-center top-1/3 card-buttons">
 						<HeartOutlinedIcon className="w-10 h-10 text-black mt-5" />
 						<PlayIcon className="w-20 h-20 text-black" />
 						<HorizontalDotsIcon className="w-10 h-10 mt-5 text-black" />

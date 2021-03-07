@@ -9,7 +9,6 @@ interface PlaylistButtonInterface {
 }
 export const PlaylistButton: React.FC<PlaylistButtonInterface> = props => {
 	const [createPlaylist, { data }] = useMutation(CREATE_PLAYLIST);
-	console.log(data);
 	const handleClick = () => {
 		Swal.fire({
 			title: 'Create Playlist',
@@ -32,25 +31,26 @@ export const PlaylistButton: React.FC<PlaylistButtonInterface> = props => {
 				return { name, description, public: isPublic };
 			}
 		}).then(result => {
-			console.log(result.value);
-			createPlaylist({
-				variables: {
-					id: props.id,
-					name: result.value.name,
-					description: result.value.description,
-					public: result.value.public
-				}
-			});
-			Swal.fire({
-				title: `Successfully created playlist ${result.value.name}`,
-				confirmButtonColor: 'green'
-			});
+			if (result.value && result.value.name) {
+				createPlaylist({
+					variables: {
+						id: props.id,
+						name: result.value.name,
+						description: result.value.description,
+						public: result.value.public
+					}
+				});
+				Swal.fire({
+					title: `Successfully created playlist ${result.value.name}`,
+					confirmButtonColor: 'green'
+				});
+			}
 		});
 	};
 
 	return (
 		<button
-			className="text-gray-500 hover:text-white mt-5 ml-4 flex font-semibold cursor-pointer focus:outline-none"
+			className="text-gray-500 hover:text-white mt-5 ml-4 flex font-semibold cursor-pointer"
 			onClick={() => handleClick()}
 		>
 			<PlusCircleIcon />

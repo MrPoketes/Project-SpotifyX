@@ -8,7 +8,7 @@ export const Button: React.FC<any> = props => {
 	return (
 		<button
 			disabled={props.disabled}
-			className={`block rounded-full focus:outline-none ${padding} font-medium tracking-wide uppercase text-sm text-white transition ease-in-out ${props.className}  focus:ring-4 ${disabled}`}
+			className={`block rounded-full ${padding} font-medium tracking-wide uppercase text-sm text-white transition ease-in-out ${props.className}  focus:ring-4 ${disabled}`}
 		>
 			<div className="flex">{props.children}</div>
 		</button>

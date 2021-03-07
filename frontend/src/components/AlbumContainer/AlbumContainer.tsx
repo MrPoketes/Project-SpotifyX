@@ -44,7 +44,7 @@ export const AlbumContainer: React.FC<AlbumContainer> = props => {
 					</h1>
 					<h1 className="text-5xl mt-1">{props.name}</h1>
 					<div className="mt-20 flex">
-						<button className="focus:outline-none mr-3">
+						<button className="mr-3">
 							{check ? (
 								<>
 									{check.checkUsersSavedAlbums[0] ? (
@@ -73,7 +73,7 @@ export const AlbumContainer: React.FC<AlbumContainer> = props => {
 								<HeartOutlinedIcon />
 							)}
 						</button>
-						<button className="focus:outline-none">
+						<button>
 							<HorizontalDotsIcon />
 						</button>
 					</div>
