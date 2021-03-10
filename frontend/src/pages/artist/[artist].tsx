@@ -1,11 +1,13 @@
 import { useQuery } from '@apollo/client';
 import Head from 'next/head';
-import { AlbumContainer } from '../../components/AlbumContainer/AlbumContainer';
+import { useState } from 'react';
+import { AlbumContainer } from '../album/helpers/AlbumContainer';
 import { Header } from '../../components/Header/Header';
 import { Layout } from '../../components/Layout/Layout';
 import { Section } from '../../components/Section/Section';
 import { GET_ARTIST } from '../../queries/artistQuery';
 import { GET_ARTIST_ALBUMS } from '../../queries/songQuery';
+import { SimilarArtists } from './helpers/SimilarArtists';
 
 export default function Artist({ artist }) {
 	const { loading: loadingA, error: errorA, data: artistData } = useQuery(
@@ -19,6 +21,12 @@ export default function Artist({ artist }) {
 		variables: { id: artist }
 	});
 
+	const [overview, isOverview] = useState(true);
+
+	const handleViewChange = (cond: boolean): void => {
+		isOverview(cond);
+	};
+
 	return (
 		<div>
 			<Head>
@@ -28,6 +36,8 @@ export default function Artist({ artist }) {
 				<Layout>
 					{artistData && (
 						<Header
+							handleChange={cond => handleViewChange(cond)}
+							isOverview={overview}
 							id={artist}
 							followers={artistData.getArtist.followers.total}
 							image={artistData.getArtist.images[0].url}
@@ -35,23 +45,28 @@ export default function Artist({ artist }) {
 							type="Artist"
 						/>
 					)}
-
-					<Section title="Albums">
-						{data && (
-							<>
-								{data.getArtistAlbums.map((album, i) => (
-									<AlbumContainer
-										key={i}
-										image={album.images[0].url}
-										releaseDate={album.release_date}
-										name={album.name}
-										uri={album.uri}
-										id={album.id}
-									/>
-								))}
-							</>
-						)}
-					</Section>
+					{overview ? (
+						<Section title="Albums">
+							{data && (
+								<>
+									{data.getArtistAlbums.map((album, i) => (
+										<AlbumContainer
+											key={i}
+											image={album.images[0].url}
+											releaseDate={album.release_date}
+											name={album.name}
+											uri={album.uri}
+											id={album.id}
+										/>
+									))}
+								</>
+							)}
+						</Section>
+					) : (
+						<Section title="Discover similar artists">
+							<SimilarArtists id={artist} />
+						</Section>
+					)}
 				</Layout>
 			</main>
 		</div>

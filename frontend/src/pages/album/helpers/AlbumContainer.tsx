@@ -1,15 +1,15 @@
 import { useMutation, useQuery } from '@apollo/client';
 import React from 'react';
-import { REMOVE_ALBUM, SAVE_ALBUM } from '../../queries/saveMutations';
-import { CHECK_SAVED_ALBUMS, GET_ALBUM_TRACKS } from '../../queries/songQuery';
+import { REMOVE_ALBUM, SAVE_ALBUM } from '../../../queries/saveMutations';
+import { CHECK_SAVED_ALBUMS, GET_ALBUM_TRACKS } from '../../../queries/songQuery';
 import {
 	ClockIcon,
 	HeartOutlinedIcon,
 	HeartSolidIcon,
 	HorizontalDotsIcon,
 	ThumbsUpIcon
-} from '../Icons/Icons';
-import { TrackList } from '../TrackList/TrackList';
+} from '../../../components/Icons/Icons';
+import { TrackList } from '../../../components/TrackList/TrackList';
 
 interface AlbumContainer {
 	image: string;

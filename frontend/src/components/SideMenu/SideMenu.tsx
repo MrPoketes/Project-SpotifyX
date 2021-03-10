@@ -1,11 +1,10 @@
 import React from 'react';
-import Link from 'next/link';
-import { HomeIcon, BrowseIcon, RadioIcon } from '../Icons/Icons';
+import { HomeIcon, BrowseIcon, RadioIcon, BurgerIcon } from '../Icons/Icons';
 import { useRouter } from 'next/dist/client/router';
 import { useQuery } from '@apollo/client';
 import { GET_ME_PLAYLISTS } from '../../queries/playlistQuery';
 import { Scroller } from '../Scroller/Scroller';
-import { PlaylistButton } from '../Playlist/helpers/PlaylistButton';
+import { PlaylistButton } from '../../pages/playlist/helpers/helpers/PlaylistButton';
 import { slide as Menu } from 'react-burger-menu';
 interface SideMenuInterface {
 	id: string;
@@ -38,32 +37,46 @@ export const SideMenu: React.FC<SideMenuInterface> = props => {
 			outerContainerId="outer-container"
 			className="bg-trueGray-900 pt-3"
 		>
+			<div className="text-center">
+				<button
+					className="mt-1 text-gray-500 hover:text-white"
+					onClick={() => {
+						props.handleBurgerClick();
+					}}
+				>
+					<BurgerIcon className="w-8 h-8" />
+				</button>
+			</div>
+
 			{/* Main navigation */}
 			<div className={router.route === '/home' ? 'text-white' : 'text-gray-500'}>
-				<Link href="/home">
-					<button className="ml-4 flex mt-5 hover:text-white">
-						<HomeIcon />
-						<p className="ml-2 font-semibold">Home</p>
-					</button>
-				</Link>
+				<button
+					className="ml-4 flex mt-1 hover:text-white"
+					onClick={() => router.push('/home')}
+				>
+					<HomeIcon />
+					<p className="ml-2 font-semibold">Home</p>
+				</button>
 			</div>
 			<div
 				className={router.route === '/browse' ? 'text-white' : 'text-gray-500'}
 			>
-				<Link href="/browse">
-					<button className="ml-4 flex mt-5 hover:text-white">
-						<BrowseIcon />
-						<p className="ml-2 font-semibold">Browse</p>
-					</button>
-				</Link>
+				<button
+					className="ml-4 flex mt-5 hover:text-white"
+					onClick={() => router.push('/browse')}
+				>
+					<BrowseIcon />
+					<p className="ml-2 font-semibold">Browse</p>
+				</button>
 			</div>
 			<div className={router.route === '/radio' ? 'text-white' : 'text-gray-500'}>
-				<Link href="/radio">
-					<button className="ml-4 flex mt-5 hover:text-white">
-						<RadioIcon />
-						<p className="ml-2 font-semibold">Radio</p>
-					</button>
-				</Link>
+				<button
+					className="ml-4 flex mt-5 hover:text-white"
+					onClick={() => router.push('/radio')}
+				>
+					<RadioIcon />
+					<p className="ml-2 font-semibold">Radio</p>
+				</button>
 			</div>
 			{/* Your library navigation */}
 			<h3 className={textStyles}>Your library</h3>
@@ -72,62 +85,68 @@ export const SideMenu: React.FC<SideMenuInterface> = props => {
 					router.route === '/made-for-you' ? 'text-white' : 'text-gray-500'
 				}
 			>
-				<Link href="/made-for-you">
-					<button className="ml-4 flex hover:text-white mt-5">
-						<p className="font-semibold">Made for you</p>
-					</button>
-				</Link>
+				<button
+					className="ml-4 flex hover:text-white mt-5"
+					onClick={() => router.push('/made-for-you')}
+				>
+					<p className="font-semibold">Made for you</p>
+				</button>
 			</div>
 			<div
 				className={
 					router.route === '/recently-played' ? 'text-white' : 'text-gray-500'
 				}
 			>
-				<Link href="/recently-played">
-					<button className="ml-4 flex hover:text-white mt-5">
-						<p className="font-semibold">Recently Played</p>
-					</button>
-				</Link>
+				<button
+					className="ml-4 flex hover:text-white mt-5"
+					onClick={() => router.push('/recently-played')}
+				>
+					<p className="font-semibold">Recently Played</p>
+				</button>
 			</div>
 			<div
 				className={
 					router.route === '/liked-songs' ? 'text-white' : 'text-gray-500'
 				}
 			>
-				<Link href="/liked-songs">
-					<button className="ml-4 flex hover:text-white mt-5">
-						<p className="font-semibold">Liked Songs</p>
-					</button>
-				</Link>
+				<button
+					className="ml-4 flex hover:text-white mt-5"
+					onClick={() => router.push('/liked-songs')}
+				>
+					<p className="font-semibold">Liked Songs</p>
+				</button>
 			</div>
 			<div
 				className={router.route === '/albums' ? 'text-white' : 'text-gray-500'}
 			>
-				<Link href="/albums">
-					<button className="ml-4 flex hover:text-white mt-5">
-						<p className="font-semibold">Albums</p>
-					</button>
-				</Link>
+				<button
+					className="ml-4 flex hover:text-white mt-5"
+					onClick={() => router.push('/albums')}
+				>
+					<p className="font-semibold">Albums</p>
+				</button>
 			</div>
 			<div
 				className={router.route === '/artists' ? 'text-white' : 'text-gray-500'}
 			>
-				<Link href="/artists">
-					<button className="ml-4 flex hover:text-white mt-5">
-						<p className="font-semibold">Artists</p>
-					</button>
-				</Link>
+				<button
+					className="ml-4 flex hover:text-white mt-5"
+					onClick={() => router.push('/artists')}
+				>
+					<p className="font-semibold">Artists</p>
+				</button>
 			</div>
 			<div
 				className={
 					router.route === '/podcasts' ? 'text-white' : 'text-gray-500'
 				}
 			>
-				<Link href="/podcasts">
-					<button className="ml-4 flex hover:text-white mt-5">
-						<p className="font-semibold">Podcasts</p>
-					</button>
-				</Link>
+				<button
+					className="ml-4 flex hover:text-white mt-5"
+					onClick={() => router.push('/podcasts')}
+				>
+					<p className="font-semibold">Podcasts</p>
+				</button>
 			</div>
 			{/* Playlists */}
 			<h3 className={textStyles}>Playlists</h3>
@@ -137,19 +156,17 @@ export const SideMenu: React.FC<SideMenuInterface> = props => {
 				{data ? (
 					<Scroller>
 						{data.getCurrentUserPlaylists.map((playlist, i) => (
-							<Link
+							<button
 								key={i}
-								href="/playlist/[playlist]"
-								as={`/playlist/${playlist.id}`}
+								className="ml-4 flex hover:text-white mt-5"
+								onClick={() => router.push(`/playlist/${playlist.id}`)}
 							>
-								<button className="ml-4 flex hover:text-white mt-5">
-									<p className="font-semibold">
-										{playlist.name.length >= 16
-											? playlist.name.substring(0, 16) + '...'
-											: playlist.name}
-									</p>
-								</button>
-							</Link>
+								<p className="font-semibold">
+									{playlist.name.length >= 16
+										? playlist.name.substring(0, 16) + '...'
+										: playlist.name}
+								</p>
+							</button>
 						))}
 					</Scroller>
 				) : (

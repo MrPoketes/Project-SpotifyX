@@ -8,6 +8,7 @@ export const GET_RECENTLY_PLAYED = gql`
 				name
 				uri
 				album {
+					id
 					uri
 					name
 					images {

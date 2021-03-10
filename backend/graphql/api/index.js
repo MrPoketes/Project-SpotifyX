@@ -46,7 +46,9 @@ const deleteResponse = async (token, url) => {
 const getAlbum = async (token, id) => {
 	const url = `https://api.spotify.com/v1/albums/${id}`;
 	const response = await getResponse(token, url);
-	return response.data;
+	let data = response.data;
+	data.tracks = data.tracks.items;
+	return data;
 };
 
 const getAlbumTracks = async (token, id) => {

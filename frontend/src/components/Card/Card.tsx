@@ -1,35 +1,61 @@
 import React from 'react';
 import { HeartOutlinedIcon, HorizontalDotsIcon, PlayIcon } from '../Icons/Icons';
-import Link from 'next/link';
+import { CardArtistText } from './helpers/CardArtistText';
+import { useRouter } from 'next/dist/client/router';
 interface CardInterface {
 	image: string;
 	header: string;
-	text: string;
-	artist?: boolean;
+	artists: ArtistInterface[];
+	isArtist?: boolean;
 	artistId?: string;
 	playlistId?: string;
+	albumId?: string;
+}
+export interface ArtistInterface {
+	id: string;
+	name: string;
 }
 
 export const Card: React.FC<CardInterface> = props => {
-	let href = '';
-	let hrefAs = '';
-	if (props.artistId) {
-		href = 'artist/[artist]';
-		hrefAs = `/artist/${props.artistId}`;
-	} else if (props.playlistId) {
-		href = 'playlist/[playlist]';
-		hrefAs = `/playlist/${props.playlistId}`;
+	const router = useRouter();
+	/**
+	 * hrefs for the entire card
+	 */
+	let hrefWhole = '';
+	/**
+	 * hrefs for an album
+	 */
+	let hrefAlbum = '';
+
+	if (props.albumId) {
+		hrefAlbum = `/album/${props.albumId}`;
 	}
+
+	if (props.artistId) {
+		hrefWhole = `/artist/${props.artistId}`;
+	} else if (props.playlistId) {
+		hrefWhole = `/playlist/${props.playlistId}`;
+	}
+
 	return (
-		<Link href={href} as={hrefAs}>
-			<div className="mr-5">
+		<>
+			<div
+				className="mr-5"
+				onClick={() => {
+					if (hrefWhole === '') {
+						router.push(hrefAlbum);
+					} else {
+						router.push(hrefWhole);
+					}
+				}}
+			>
 				<div className="flex relative cursor-pointer hover-opacity">
 					<img
 						src={props.image}
 						className={
-							props.artist
-								? 'rounded-full transition ease-in-out'
-								: 'transition ease-in-out'
+							props.isArtist
+								? 'rounded-full transition ease-in-out w-80 h-80'
+								: 'transition ease-in-out w-80 h-80'
 						}
 					/>
 					<div className="flex absolute cursor-default h-1/2 w-full justify-center top-1/3 card-buttons">
@@ -40,20 +66,23 @@ export const Card: React.FC<CardInterface> = props => {
 				</div>
 
 				<div className="mt-2 text-center">
-					<Link href={href} as={hrefAs}>
-						<a>
-							<h1 className="cursor-pointer">
-								{props.header.length >= 25
-									? props.header.substring(0, 25) + '...'
-									: props.header}
-							</h1>
-						</a>
-					</Link>
-					<h2 className="cursor-pointer font-medium text-sm text-gray-400">
-						{props.text}
-					</h2>
+					<button
+						className="font-bold"
+						onClick={() => router.push(hrefAlbum)}
+					>
+						<h1 className="cursor-pointer">
+							{props.header.length >= 25
+								? props.header.substring(0, 25) + '...'
+								: props.header}
+						</h1>
+					</button>
 				</div>
 			</div>
-		</Link>
+			{props.artists.length !== 0 && (
+				<div className="cursor-pointer font-medium text-sm text-gray-400 flex justify-center">
+					<CardArtistText artists={props.artists} />
+				</div>
+			)}
+		</>
 	);
 };

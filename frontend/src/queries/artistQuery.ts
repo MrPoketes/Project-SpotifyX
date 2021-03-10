@@ -20,3 +20,15 @@ export const CHECK_FOLLOWS_ARTIST = gql`
 		checkIfUserFollows(type: "artist", id: $id)
 	}
 `;
+
+export const GET_RELATED = gql`
+	query getRelated($id: String!) {
+		getArtistRelated(id: $id) {
+			id
+			name
+			images {
+				url
+			}
+		}
+	}
+`;

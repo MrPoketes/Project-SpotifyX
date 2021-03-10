@@ -1,7 +1,11 @@
 import React from 'react';
-import { Button } from '../Button/Button';
-import { ClockIcon, HorizontalDotsIcon, ThumbsUpIcon } from '../Icons/Icons';
-import { TrackList } from '../TrackList/TrackList';
+import { Button } from '../../../components/Button/Button';
+import {
+	ClockIcon,
+	HorizontalDotsIcon,
+	ThumbsUpIcon
+} from '../../../components/Icons/Icons';
+import { TrackList } from '../../../components/TrackList/TrackList';
 
 interface PlaylistContainerInterface {
 	image: string;

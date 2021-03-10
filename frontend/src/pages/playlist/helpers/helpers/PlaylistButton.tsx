@@ -1,8 +1,8 @@
 import React from 'react';
-import { PlusCircleIcon } from '../../Icons/Icons';
+import { PlusCircleIcon } from '../../../../components/Icons/Icons';
 import Swal from 'sweetalert2';
 import { useMutation } from '@apollo/client';
-import { CREATE_PLAYLIST } from '../../../queries/playlistQuery';
+import { CREATE_PLAYLIST } from '../../../../queries/playlistQuery';
 
 interface PlaylistButtonInterface {
 	id: string;

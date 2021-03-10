@@ -9,6 +9,8 @@ interface HeaderInterface {
 	followers: number;
 	image: string;
 	id: string;
+	isOverview: boolean;
+	handleChange: (cond: boolean) => void;
 }
 
 export const Header: React.FC<HeaderInterface> = props => {
@@ -20,7 +22,7 @@ export const Header: React.FC<HeaderInterface> = props => {
 
 	return (
 		<div className="relative">
-			<div className="absolute bottom-5 left-5">
+			<div className="absolute bottom-2 left-5">
 				<div className="mb-5">
 					<h1 className="text-3xl">{props.type}</h1>
 					<h1 className="text-7xl font-bold">{props.name}</h1>
@@ -45,6 +47,32 @@ export const Header: React.FC<HeaderInterface> = props => {
 						<h1>Followers</h1>
 						<h1>{props.followers}</h1>
 					</div> */}
+				</div>
+				<div className="mt-2 flex">
+					<button
+						className={
+							props.isOverview
+								? 'border-b-4 border-green-600 uppercase font-medium mr-6'
+								: 'uppercase font-medium mr-6'
+						}
+						onClick={() => {
+							props.handleChange(true);
+						}}
+					>
+						Overview
+					</button>
+					<button
+						className={
+							!props.isOverview
+								? 'border-b-4 border-green-600 uppercase font-medium mr-6'
+								: 'uppercase font-medium mr-6'
+						}
+						onClick={() => {
+							props.handleChange(false);
+						}}
+					>
+						Fans also like
+					</button>
 				</div>
 			</div>
 			<div

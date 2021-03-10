@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client';
 import Head from 'next/head';
 import React from 'react';
-import { PlaylistContainer } from '../../components/Playlist/PlaylistContainer';
+import { PlaylistContainer } from './helpers/PlaylistContainer';
 import { Layout } from '../../components/Layout/Layout';
 import { GET_PLAYLIST } from '../../queries/playlistQuery';
 

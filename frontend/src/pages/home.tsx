@@ -47,12 +47,10 @@ export default function Home() {
 									{recentlyPlayed.getRecentlyPlayed.map(
 										(track, i) => (
 											<Card
+												albumId={track.track.album.id}
 												key={i}
 												header={track.track.name}
-												text={formatArtistNames(
-													track.track.artists,
-													track.track.artists.length
-												)}
+												artists={track.track.artists}
 												image={track.track.album.images[0].url}
 											/>
 										)
@@ -69,13 +67,11 @@ export default function Home() {
 								<ItemCarousel noToShow={6} noToScrool={2}>
 									{newReleases.getNewReleases.map((release, i) => (
 										<Card
+											albumId={release.id}
 											key={i}
 											header={release.name}
 											image={release.images[0].url}
-											text={formatArtistNames(
-												release.artists,
-												release.artists.length
-											)}
+											artists={release.artists}
 										/>
 									))}
 								</ItemCarousel>
@@ -93,7 +89,7 @@ export default function Home() {
 											<Card
 												key={i}
 												header={playlist.name}
-												text=""
+												artists={[]}
 												image={playlist.images[0].url}
 												playlistId={playlist.id}
 											/>
@@ -114,14 +110,10 @@ export default function Home() {
 									).items.map((item, i) => (
 										<Card
 											artistId={item.id}
-											artist={true}
+											isArtist={true}
 											key={i}
 											header={item.name}
-											text={
-												new Intl.NumberFormat('en').format(
-													item.followers.total
-												) + ' followers'
-											}
+											artists={[]}
 											image={item.images[0].url}
 										/>
 									))}
