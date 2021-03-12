@@ -2,16 +2,7 @@ import { useQuery } from '@apollo/client';
 import React from 'react';
 import { CHECK_FOLLOWS_ARTIST } from '../../queries/artistQuery';
 import { Button } from '../Button/Button';
-
-interface HeaderInterface {
-	type: string;
-	name: string;
-	followers: number;
-	image: string;
-	id: string;
-	isOverview: boolean;
-	handleChange: (cond: boolean) => void;
-}
+import { HeaderInterface } from './HeaderInterfaces';
 
 export const Header: React.FC<HeaderInterface> = props => {
 	const {

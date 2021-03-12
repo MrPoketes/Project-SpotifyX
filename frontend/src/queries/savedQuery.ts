@@ -6,6 +6,7 @@ export const GET_SAVED_TRACKS = gql`
 			added_at
 			track {
 				album {
+					id
 					name
 				}
 				id
@@ -13,6 +14,7 @@ export const GET_SAVED_TRACKS = gql`
 				name
 				duration_ms
 				artists {
+					id
 					name
 				}
 			}

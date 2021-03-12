@@ -2,19 +2,7 @@ import React from 'react';
 import { HeartOutlinedIcon, HorizontalDotsIcon, PlayIcon } from '../Icons/Icons';
 import { CardArtistText } from './helpers/CardArtistText';
 import { useRouter } from 'next/dist/client/router';
-interface CardInterface {
-	image: string;
-	header: string;
-	artists: ArtistInterface[];
-	isArtist?: boolean;
-	artistId?: string;
-	playlistId?: string;
-	albumId?: string;
-}
-export interface ArtistInterface {
-	id: string;
-	name: string;
-}
+import { CardInterface } from './CardInterfaces';
 
 export const Card: React.FC<CardInterface> = props => {
 	const router = useRouter();
@@ -68,7 +56,13 @@ export const Card: React.FC<CardInterface> = props => {
 				<div className="mt-2 text-center">
 					<button
 						className="font-bold"
-						onClick={() => router.push(hrefAlbum)}
+						onClick={() => {
+							if (hrefAlbum === '') {
+								router.push(hrefWhole);
+							} else {
+								router.push(hrefAlbum);
+							}
+						}}
 					>
 						<h1 className="cursor-pointer">
 							{props.header.length >= 25

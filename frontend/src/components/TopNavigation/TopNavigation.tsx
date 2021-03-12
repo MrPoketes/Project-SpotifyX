@@ -1,13 +1,8 @@
 import React from 'react';
-import { DownIcon, BurgerIcon } from '../Icons/Icons';
+import { DownIcon } from '../Icons/Icons';
 import { SearchBar } from '../SearchBar/SearchBar';
 import { RouterButtons } from './helpers/RouterButtons';
-
-interface TopNavigationInterface {
-	displayName: string;
-	image: string;
-	handleBurgerClick: () => void;
-}
+import { TopNavigationInterface } from './TopNavigationInterfaces';
 
 export const TopNavigation: React.FC<TopNavigationInterface> = props => {
 	return (
@@ -24,7 +19,6 @@ export const TopNavigation: React.FC<TopNavigationInterface> = props => {
 					<h1 className="mr-4 hover:underline cursor-default">
 						{props.displayName}
 					</h1>
-					{/* TODO: Add a handleClick and add tooltip when clicked */}
 					<DownIcon />
 				</div>
 			</>

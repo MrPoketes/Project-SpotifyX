@@ -1,9 +1,5 @@
 import React from 'react';
-
-interface SectionInterface {
-	title: string;
-	flex?: boolean;
-}
+import { SectionInterface } from './SectionInterfaces';
 
 export const Section: React.FC<SectionInterface> = ({ children, title, flex }) => {
 	return (
