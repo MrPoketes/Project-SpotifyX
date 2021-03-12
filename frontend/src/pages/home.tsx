@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Head from 'next/head';
 import { Layout } from '../components/Layout/Layout';
 import { MainSection } from '../components/MainSection/MainSection';
@@ -10,7 +10,6 @@ import {
 	GET_FEATURED_PLAYLISTS,
 	GET_TOP_ARTISTS_OR_TRACKS
 } from '../queries/homePageQuery';
-import { formatArtistNames } from '../utilities/formatArtistNames';
 import { useQuery } from '@apollo/client';
 import { ItemCarousel } from '../components/ItemCarousel/ItemCarousel';
 import { LoadingIcon } from '../components/Icons/Icons';
@@ -36,7 +35,7 @@ export default function Home() {
 	return (
 		<div className="pb-10">
 			<Head>
-				<title>SpotifyX</title>
+				<title>SpotifyX - Home</title>
 			</Head>
 			<main>
 				<Layout>

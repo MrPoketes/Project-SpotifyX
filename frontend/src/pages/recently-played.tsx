@@ -12,7 +12,7 @@ export default function RecentlyPlayed() {
 	return (
 		<div>
 			<Head>
-				<title>SpotifyX</title>
+				<title>SpotifyX - Recently Played</title>
 			</Head>
 			<main>
 				<Layout>

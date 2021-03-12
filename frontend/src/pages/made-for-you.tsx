@@ -5,7 +5,7 @@ export default function MadeForYou() {
 	return (
 		<div>
 			<Head>
-				<title>SpotifyX</title>
+				<title>SpotifyX - Made for you</title>
 			</Head>
 			<main>
 				<Layout>Made for you</Layout>

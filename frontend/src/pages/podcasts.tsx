@@ -5,7 +5,7 @@ export default function Podcasts() {
 	return (
 		<div>
 			<Head>
-				<title>SpotifyX</title>
+				<title>SpotifyX - Podcasts</title>
 			</Head>
 			<main>
 				<Layout>Podcasts</Layout>
