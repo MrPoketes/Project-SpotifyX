@@ -30,18 +30,6 @@ export const GET_RECENTLY_PLAYED = gql`
 	}
 `;
 
-export const GET_ALL_CATEGORIES = gql`
-	query getAllCategories {
-		getAllCategories(country: "") {
-			href
-			icons {
-				url
-			}
-			id
-			name
-		}
-	}
-`;
 export const GET_NEW_RELEASES = gql`
 	query getNewReleases {
 		getNewReleases(country: "US") {
