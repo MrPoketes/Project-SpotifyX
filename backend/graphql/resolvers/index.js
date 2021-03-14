@@ -1,8 +1,4 @@
 const actions = require('../api/index.js');
-const { PubSub } = require('apollo-server');
-
-// When finally deploying, change this to something else better
-const pubsub = new PubSub();
 
 const checkToken = token => {
 	if (token) {
@@ -12,8 +8,106 @@ const checkToken = token => {
 };
 
 const resolvers = {
-	Subscribtion: {},
+	Subscription: {
+		checkUserFollowsPlaylist: (parent, args, ctx, info) => {
+			if (checkToken(ctx.accessToken)) {
+				return actions.checkIfUsersFollowPlaylist(
+					ctx.accessToken,
+					args.playlist_id,
+					args.ids
+				);
+			}
+			return null;
+		},
+		getFollowedArtists: (parent, args, ctx, info) => {
+			if (checkToken(ctx.accessToken)) {
+				return actions.getFollowedArtists(ctx.accessToken, args.type);
+			}
+			return null;
+		},
+		getSavedAlbums: (parent, args, ctx, info) => {
+			if (checkToken(ctx.accessToken)) {
+				return actions.getSavedAlbums(ctx.accessToken);
+			}
+			return null;
+		},
+		checkUsersSavedAlbums: (parent, args, ctx, info) => {
+			if (checkToken(ctx.accessToken)) {
+				return actions.checkSavedAlbums(ctx.accessToken, args.ids);
+			}
+			return null;
+		},
+		getSavedTracks: (parent, args, ctx, info) => {
+			if (checkToken(ctx.accessToken)) {
+				return actions.getSavedTracks(ctx.accessToken);
+			}
+			return null;
+		},
+		checkUsersSavedTracks: (parent, args, ctx, info) => {
+			if (checkToken(ctx.accessToken)) {
+				return actions.checkSavedTracks(ctx.accessToken, args.ids);
+			}
+			return null;
+		},
+		getSavedShows: (parent, args, ctx, info) => {
+			if (checkToken(ctx.accessToken)) {
+				return actions.getSavedShows(ctx.accessToken);
+			}
+			return null;
+		},
+		checkUsersSavedShows: (parent, args, ctx, info) => {
+			if (checkToken(ctx.accessToken)) {
+				return actions.checkUsersSavedShows(ctx.accessToken, args.ids);
+			}
+			return null;
+		},
+
+		getCurrentPlayback: (parent, args, ctx, info) => {
+			if (checkToken(ctx.accessToken)) {
+				return actions.getInfoCurrentPlayback(ctx.accessToken);
+			}
+			return null;
+		},
+		getAvailableDevices: (parent, args, ctx, info) => {
+			if (checkToken(ctx.accessToken)) {
+				return actions.getAvailableDevices(ctx.accessToken);
+			}
+			return null;
+		},
+		getCurrentlyPlaying: (parent, args, ctx, info) => {
+			if (checkToken(ctx.accessToken)) {
+				return actions.getCurrentlyPlayingTrack(ctx.accessToken, args.market);
+			}
+			return null;
+		},
+		getRecentlyPlayed: (parent, args, ctx, info) => {
+			if (checkToken(ctx.accessToken)) {
+				return actions.getRecentlyPlayedTracks(ctx.accessToken);
+			}
+			return null;
+		},
+
+		getCurrentUserPlaylists: (parent, args, ctx, info) => {
+			if (checkToken(ctx.accessToken)) {
+				return actions.getCurrentUserPlaylists(ctx.accessToken);
+			}
+			return null;
+		},
+		search: (parent, args, ctx, info) => {
+			if (checkToken(ctx.accessToken)) {
+				return actions.search(ctx.accessToken, args.query, args.type);
+			}
+			return null;
+		}
+	},
 	Query: {
+		getUserPlaylists: (parent, args, ctx, info) => {
+			if (checkToken(ctx.accessToken)) {
+				return actions.getUserPlaylists(ctx.accessToken, args.id);
+			}
+			return null;
+		},
+
 		getMe: (parent, args, ctx, info) => {
 			if (checkToken(ctx.accessToken)) {
 				return actions.getMe(ctx.accessToken);
@@ -143,22 +237,6 @@ const resolvers = {
 			return null;
 		},
 
-		checkUserFollowsPlaylist: (parent, args, ctx, info) => {
-			if (checkToken(ctx.accessToken)) {
-				return actions.checkIfUsersFollowPlaylist(
-					ctx.accessToken,
-					args.playlist_id,
-					args.ids
-				);
-			}
-			return null;
-		},
-		getFollowedArtists: (parent, args, ctx, info) => {
-			if (checkToken(ctx.accessToken)) {
-				return actions.getFollowedArtists(ctx.accessToken, args.type);
-			}
-			return null;
-		},
 		checkIfUserFollows: (parent, args, ctx, info) => {
 			if (checkToken(ctx.accessToken)) {
 				return actions.checkIfUserFollows(ctx.accessToken, args.type, args.id);
@@ -167,42 +245,7 @@ const resolvers = {
 		},
 
 		// checkFollowingArtistsUsers
-		getSavedAlbums: (parent, args, ctx, info) => {
-			if (checkToken(ctx.accessToken)) {
-				return actions.getSavedAlbums(ctx.accessToken);
-			}
-			return null;
-		},
-		checkUsersSavedAlbums: (parent, args, ctx, info) => {
-			if (checkToken(ctx.accessToken)) {
-				return actions.checkSavedAlbums(ctx.accessToken, args.ids);
-			}
-			return null;
-		},
-		getSavedTracks: (parent, args, ctx, info) => {
-			if (checkToken(ctx.accessToken)) {
-				return actions.getSavedTracks(ctx.accessToken);
-			}
-			return null;
-		},
-		checkUsersSavedTracks: (parent, args, ctx, info) => {
-			if (checkToken(ctx.accessToken)) {
-				return actions.checkSavedTracks(ctx.accessToken, args.ids);
-			}
-			return null;
-		},
-		getSavedShows: (parent, args, ctx, info) => {
-			if (checkToken(ctx.accessToken)) {
-				return actions.getSavedShows(ctx.accessToken);
-			}
-			return null;
-		},
-		checkUsersSavedShows: (parent, args, ctx, info) => {
-			if (checkToken(ctx.accessToken)) {
-				return actions.checkUsersSavedShows(ctx.accessToken, args.ids);
-			}
-			return null;
-		},
+
 		getTopArtistsTracks: (parent, args, ctx, info) => {
 			if (checkToken(ctx.accessToken)) {
 				return actions.getTopArtistsAndTracks(ctx.accessToken, args.type);
@@ -210,43 +253,6 @@ const resolvers = {
 			return null;
 		},
 
-		getCurrentPlayback: (parent, args, ctx, info) => {
-			if (checkToken(ctx.accessToken)) {
-				return actions.getInfoCurrentPlayback(ctx.accessToken);
-			}
-			return null;
-		},
-		getAvailableDevices: (parent, args, ctx, info) => {
-			if (checkToken(ctx.accessToken)) {
-				return actions.getAvailableDevices(ctx.accessToken);
-			}
-			return null;
-		},
-		getCurrentlyPlaying: (parent, args, ctx, info) => {
-			if (checkToken(ctx.accessToken)) {
-				return actions.getCurrentlyPlayingTrack(ctx.accessToken, args.market);
-			}
-			return null;
-		},
-		getRecentlyPlayed: (parent, args, ctx, info) => {
-			if (checkToken(ctx.accessToken)) {
-				return actions.getRecentlyPlayedTracks(ctx.accessToken);
-			}
-			return null;
-		},
-
-		getCurrentUserPlaylists: (parent, args, ctx, info) => {
-			if (checkToken(ctx.accessToken)) {
-				return actions.getCurrentUserPlaylists(ctx.accessToken);
-			}
-			return null;
-		},
-		getUserPlaylists: (parent, args, ctx, info) => {
-			if (checkToken(ctx.accessToken)) {
-				return actions.getUserPlaylists(ctx.accessToken, args.id);
-			}
-			return null;
-		},
 		getPlaylist: (parent, args, ctx, info) => {
 			if (checkToken(ctx.accessToken)) {
 				return actions.getPlaylist(ctx.accessToken, args.id);
@@ -262,13 +268,6 @@ const resolvers = {
 		getPlaylistCover: (parent, args, ctx, info) => {
 			if (checkToken(ctx.accessToken)) {
 				return actions.getPlaylistImage(ctx.accessToken, args.id);
-			}
-			return null;
-		},
-
-		search: (parent, args, ctx, info) => {
-			if (checkToken(ctx.accessToken)) {
-				return actions.search(ctx.accessToken, args.query, args.type);
 			}
 			return null;
 		},

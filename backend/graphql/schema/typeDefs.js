@@ -40,28 +40,25 @@ const typeDefs = gql`
 	type Subscription {
 		checkUserFollowsPlaylist(playlist_id: String, ids: String): [Boolean]
 		getFollowedArtists(type: String): [Artist]
-		checkFollowingArtistsUsers(playlist_id: String, ids: String): [Boolean]
 		getSavedAlbums: [SavedAlbum]
 		checkUsersSavedAlbums(ids: String): [Boolean]
 		getSavedTracks: [SavedTrack]
 		checkUsersSavedTracks(ids: String): [Boolean]
 		getSavedShows: [SavedShow]
 		checkUsersSavedShows(ids: String): [Boolean]
+
 		getCurrentPlayback: CurrentlyPlayingContext
 		getAvailableDevices: [Device]
 		# Use JSON.parse to access json of returned data
 		getCurrentlyPlaying(market: String): String
 		getRecentlyPlayed: [PlayHistory]
-		# A search can give a lot of different objects.
-		# So we return a string and in frontend use JSON.parse to get an object
-		search(query: String, type: String): String
 		getCurrentUserPlaylists: [Playlist]
-		getUserPlaylists(id: String): [Playlist]
 	}
 
 	type Query {
+		getUserPlaylists(id: String): [Playlist]
 		getMe: Me
-
+		checkFollowingArtistsUsers(playlist_id: String, ids: String): [Boolean]
 		getAlbums(ids: String): [Album]
 		getAlbum(id: String): Album
 		getAlbumTracks(id: String): [Track]
@@ -96,6 +93,10 @@ const typeDefs = gql`
 		getShows(ids: String): [Show]
 		getShow(id: String): Show
 		getShowEpisode(id: String): [Episode]
+
+		# A search can give a lot of different objects.
+		# So we return a string and in frontend use JSON.parse to get an object
+		search(query: String, type: String): String
 
 		getTracks(ids: String): [Track]
 		getTrack(id: String): Track

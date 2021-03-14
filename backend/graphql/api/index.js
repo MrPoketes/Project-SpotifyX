@@ -1,4 +1,8 @@
 const axios = require('axios');
+const { PubSub } = require('apollo-server');
+
+// When finally deploying, change this to something else better
+const pubsub = new PubSub();
 
 const makeHeaders = token => {
 	return {
@@ -447,6 +451,7 @@ const createPlaylist = async (token, id, name, description, public) => {
 		headers: makeHeaders(token),
 		data: body
 	});
+
 	return response.data;
 };
 
