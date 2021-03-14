@@ -1,4 +1,8 @@
 const actions = require('../api/index.js');
+const { PubSub } = require('apollo-server');
+
+// When finally deploying, change this to something else better
+const pubsub = new PubSub();
 
 const checkToken = token => {
 	if (token) {
@@ -8,6 +12,7 @@ const checkToken = token => {
 };
 
 const resolvers = {
+	Subscribtion: {},
 	Query: {
 		getMe: (parent, args, ctx, info) => {
 			if (checkToken(ctx.accessToken)) {

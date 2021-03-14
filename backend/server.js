@@ -2,6 +2,7 @@ const express = require('express');
 const passport = require('passport');
 const SpotifyStrategy = require('passport-spotify').Strategy;
 const cors = require('cors');
+const http = require('http');
 const { ApolloServer } = require('apollo-server-express');
 const resolvers = require('./graphql/resolvers/index.js');
 const typeDefs = require('./graphql/schema/typeDefs');
@@ -19,7 +20,7 @@ const app = express();
 const server = new ApolloServer({
 	typeDefs,
 	resolvers,
-	context: () => {
+	context: ({ req, connection }) => {
 		const data = jsonfile.readFileSync('token.json');
 		return { accessToken: data.accessToken };
 	}
@@ -27,6 +28,9 @@ const server = new ApolloServer({
 app.use(passport.initialize());
 app.use(passport.session());
 server.applyMiddleware({ app });
+
+const httpServer = http.createServer(app);
+server.installSubscriptionHandlers(httpServer);
 
 /**
  * Authentication
@@ -52,6 +56,7 @@ passport.use(
 			callbackURL: redirect_uri
 		},
 		(accessToken, refreshToken, expires_in, profile, done) => {
+			console.log(profile.id);
 			token = accessToken;
 			jsonfile
 				.writeFile('token.json', {
@@ -106,36 +111,6 @@ app.get(
 		res.redirect('http://localhost:3000' + '?access_token=' + token);
 	}
 );
-/**
- * Refreshes token after 3500 seconds
- */
-
-if (jsonfile.readFileSync('token.json').accessToken) {
-	setInterval(async () => {
-		const data = jsonfile.readFileSync('token.json');
-		const response = await axios({
-			method: 'POST',
-			url: 'https://accounts.spotify.com/api/token',
-			data: qs.stringify({
-				grant_type: 'refresh_token',
-				refresh_token: data.refreshToken,
-				client_id: process.env.SPOTIFY_CLIENT_ID,
-				client_secret: process.env.SPOTIFY_CLIENT_SECRET
-			}),
-			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded'
-			}
-		});
-		jsonfile
-			.writeFile('token.json', {
-				accessToken: response.data.access_token,
-				refreshToken: response.data.refresh_token,
-				expires_in: response.data.expires_in
-			})
-			.then(() => console.log('Success'))
-			.catch(error => console.error(error));
-	}, 3500000);
-}
 
 /**
  * App use
@@ -143,8 +118,10 @@ if (jsonfile.readFileSync('token.json').accessToken) {
 
 app.use(cors());
 
-app.listen(PORT, () =>
+httpServer.listen(PORT, () => {
+	console.log(`Listening on port ${PORT}`);
+	console.log(`Graphql url: http://localhost:8888${server.graphqlPath}`);
 	console.log(
-		`Listening on port ${PORT}, Graphql url: http://localhost:8888${server.graphqlPath}`
-	)
-);
+		`Subscriptions ready at ws://localhost:${PORT}${server.subscriptionsPath}`
+	);
+});
