@@ -10,7 +10,7 @@ export default function Artists() {
 	return (
 		<div>
 			<Head>
-				<title>SpotifyX</title>
+				<title>SpotifyX - Artists</title>
 			</Head>
 			<main>
 				<Layout>

@@ -1,6 +1,6 @@
 import { useRouter } from 'next/dist/client/router';
 import React from 'react';
-import { ArtistInterface } from '../Card';
+import { ArtistInterface } from '../CardInterfaces';
 
 interface CardArtistsTextInterface {
 	artists: ArtistInterface[];

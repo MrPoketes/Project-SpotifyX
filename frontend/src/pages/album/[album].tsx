@@ -13,7 +13,7 @@ export default function Album({ album, name }) {
 	return (
 		<div>
 			<Head>
-				<title>SpotifyX</title>
+				<title>SpotifyX - Album</title>
 			</Head>
 			<main>
 				<Layout>

@@ -10,7 +10,7 @@ export default function Albums() {
 	return (
 		<div>
 			<Head>
-				<title>SpotifyX</title>
+				<title>SpotifyX - Albums</title>
 			</Head>
 			<main>
 				<Layout>

@@ -6,18 +6,14 @@ import { GET_ME_PLAYLISTS } from '../../queries/playlistQuery';
 import { Scroller } from '../Scroller/Scroller';
 import { PlaylistButton } from '../../pages/playlist/helpers/helpers/PlaylistButton';
 import { slide as Menu } from 'react-burger-menu';
-interface SideMenuInterface {
-	id: string;
-	open: boolean;
-	handleBurgerClick: () => void;
-}
+import { SideMenuInterface } from './SideMenuInterfaces';
 
 export const SideMenu: React.FC<SideMenuInterface> = props => {
 	const router = useRouter();
 	const textStyles = 'mt-5 text-gray-500 pl-3 ';
 	const { loading, error, data } = useQuery(GET_ME_PLAYLISTS);
 	/**
-	 * For some reason this button takes up the whole width of the screen and then anywhere you click the menu opens
+	 * For some reason this button takes up the whole width of the screen and then anywhere you click, the menu opens
 	 */
 	const stupidButton = document.querySelector('div.bm-burger-button');
 	if (stupidButton) {
@@ -150,29 +146,25 @@ export const SideMenu: React.FC<SideMenuInterface> = props => {
 			</div>
 			{/* Playlists */}
 			<h3 className={textStyles}>Playlists</h3>
-			<div
-				className={router.route === '/artists' ? 'text-white' : 'text-gray-500'}
-			>
-				{data ? (
-					<Scroller>
-						{data.getCurrentUserPlaylists.map((playlist, i) => (
-							<button
-								key={i}
-								className="ml-4 flex hover:text-white mt-5"
-								onClick={() => router.push(`/playlist/${playlist.id}`)}
-							>
-								<p className="font-semibold">
-									{playlist.name.length >= 16
-										? playlist.name.substring(0, 16) + '...'
-										: playlist.name}
-								</p>
-							</button>
-						))}
-					</Scroller>
-				) : (
-					<div></div>
-				)}
-			</div>
+			{data ? (
+				<Scroller>
+					{data.getCurrentUserPlaylists.map((playlist, i) => (
+						<button
+							key={i}
+							className="ml-4 flex hover:text-white mt-5 text-gray-500"
+							onClick={() => router.push(`/playlist/${playlist.id}`)}
+						>
+							<p className="font-semibold">
+								{playlist.name.length >= 16
+									? playlist.name.substring(0, 16) + '...'
+									: playlist.name}
+							</p>
+						</button>
+					))}
+				</Scroller>
+			) : (
+				<div></div>
+			)}
 			<PlaylistButton id={props.id} />
 		</Menu>
 	);

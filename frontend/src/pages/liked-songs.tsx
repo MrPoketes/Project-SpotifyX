@@ -21,7 +21,7 @@ export default function LikedSongs() {
 	return (
 		<div>
 			<Head>
-				<title>SpotifyX</title>
+				<title>SpotifyX - Liked Songs</title>
 			</Head>
 			<main>
 				<Layout>

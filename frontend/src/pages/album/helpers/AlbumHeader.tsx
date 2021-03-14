@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '../../../components/Button/Button';
-import { HeartOutlinedIcon } from '../../../components/Icons/Icons';
 import { formatArtistNames } from '../../../utilities/formatArtistNames';
+import { FollowCheck } from './FollowCheck';
 
 interface AlbumHeaderInterface {
 	image: string;
@@ -35,7 +35,7 @@ export const AlbumHeader: React.FC<AlbumHeaderInterface> = props => {
 					<div className="text-black flex">
 						<Button className="bg-green-500 mr-2">Play</Button>
 						<Button className="bg-gray-700 border mr-2 border-white">
-							<HeartOutlinedIcon />
+							<FollowCheck id={props.id} />
 						</Button>
 						<Button circle className="bg-gray-700 border border-white">
 							...

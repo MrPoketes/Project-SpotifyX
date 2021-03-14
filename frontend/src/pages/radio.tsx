@@ -5,7 +5,7 @@ export default function Radio() {
 	return (
 		<div>
 			<Head>
-				<title>SpotifyX</title>
+				<title>SpotifyX - Radio</title>
 			</Head>
 			<main>
 				<Layout>

@@ -1,8 +1,6 @@
 import React from 'react';
+import { MainSectionInterface } from './MainSectionInterfaces';
 
-interface MainSectionInterface {
-	header: string;
-}
 export const MainSection: React.FC<MainSectionInterface> = ({ children, header }) => {
 	return (
 		<div className="mt-20">

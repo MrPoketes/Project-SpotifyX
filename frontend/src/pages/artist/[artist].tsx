@@ -30,7 +30,7 @@ export default function Artist({ artist }) {
 	return (
 		<div>
 			<Head>
-				<title>SpotifyX</title>
+				<title>SpotifyX - Artist</title>
 			</Head>
 			<main>
 				<Layout>

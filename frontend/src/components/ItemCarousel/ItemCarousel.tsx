@@ -1,11 +1,7 @@
 import React from 'react';
 import Carousel from 'nuka-carousel';
 import { LeftIcon, RightIcon } from '../Icons/Icons';
-
-interface ItemCarouselInterface {
-	noToShow: number;
-	noToScrool: number;
-}
+import { ItemCarouselInterface } from './ItemCarouselInterfaces';
 
 export const ItemCarousel: React.FC<ItemCarouselInterface> = ({
 	children,

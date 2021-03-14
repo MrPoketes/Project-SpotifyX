@@ -1,16 +1,23 @@
+import { useQuery } from '@apollo/client';
 import Head from 'next/head';
-import { useContext } from 'react';
+import { BrowseGenres } from '../components/BrowseComponents/BrowseGenres';
 import { Layout } from '../components/Layout/Layout';
-import { AccessToken } from './_app';
+import { GET_ME_DATA } from '../queries/userQuery';
 
 export default function Browse() {
+	const { loading: loadingMe, error: errorMe, data: meData } = useQuery(GET_ME_DATA);
 	return (
 		<div>
 			<Head>
-				<title>SpotifyX</title>
+				<title>SpotifyX - Browse</title>
 			</Head>
 			<main>
-				<Layout>Browse</Layout>
+				<Layout>
+					<div className="text-4xl font-bold mt-10 mb-5">
+						<h1>Browse</h1>
+					</div>
+					{meData && <BrowseGenres country={meData.getMe.country} />}
+				</Layout>
 			</main>
 		</div>
 	);

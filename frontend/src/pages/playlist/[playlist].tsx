@@ -12,7 +12,7 @@ export default function Playlist({ playlist }) {
 	return (
 		<div>
 			<Head>
-				<title>SpotifyX</title>
+				<title>SpotifyX - Playlist</title>
 			</Head>
 			<main>
 				<Layout>

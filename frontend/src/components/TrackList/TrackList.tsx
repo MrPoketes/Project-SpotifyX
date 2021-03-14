@@ -1,5 +1,4 @@
 import React from 'react';
-import { formatArtistNames } from '../../utilities/formatArtistNames';
 import { formatDuration } from '../../utilities/formatDuration';
 import { ListBody } from './helpers/ListBody';
 import {
@@ -9,10 +8,7 @@ import {
 } from './TrackListInterface';
 
 export const TrackList: React.FC<TrackListInterface> = props => {
-	const getRowInfo = (
-		track: TrackInterface | PlaylistInterface,
-		index: number
-	): string[] => {
+	const getRowInfo = (track: TrackInterface | PlaylistInterface, index: number) => {
 		if (props.type === 'track') {
 			return [
 				(index + 1).toString(),
@@ -25,10 +21,17 @@ export const TrackList: React.FC<TrackListInterface> = props => {
 			return [
 				(index + 1).toString(),
 				track.name,
-				formatArtistNames(playlistTrack.artists, playlistTrack.artists.length),
-				playlistTrack.album.name.length >= 20
-					? playlistTrack.album.name.substring(0, 20) + '...'
-					: playlistTrack.album.name,
+				{
+					artists: playlistTrack.artists
+				},
+				{
+					name:
+						playlistTrack.album.name.length >= 20
+							? playlistTrack.album.name.substring(0, 20) + '...'
+							: playlistTrack.album.name,
+					id: playlistTrack.album.id
+				},
+
 				playlistTrack.releaseDate.substring(0, 10),
 				formatDuration(track.duration_ms)
 			];
@@ -45,12 +48,13 @@ export const TrackList: React.FC<TrackListInterface> = props => {
 					))}
 				</tr>
 			</thead>
-			<tbody>
+			<tbody className="cursor-default">
 				{props.trackData.length > 0 ? (
 					<>
 						{props.trackData.map((track, i) => {
 							return (
 								<ListBody
+									type={props.type}
 									key={i}
 									rowInfo={getRowInfo(track, i)}
 									id={track.id}
