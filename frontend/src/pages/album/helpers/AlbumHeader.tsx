@@ -34,9 +34,7 @@ export const AlbumHeader: React.FC<AlbumHeaderInterface> = props => {
 					</h1>
 					<div className="text-black flex">
 						<Button className="bg-green-500 mr-2">Play</Button>
-						<Button className="bg-gray-700 border mr-2 border-white">
-							<FollowCheck id={props.id} />
-						</Button>
+						<FollowCheck id={props.id} />
 						<Button circle className="bg-gray-700 border border-white">
 							...
 						</Button>

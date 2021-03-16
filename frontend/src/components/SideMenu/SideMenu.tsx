@@ -11,7 +11,7 @@ import { SideMenuInterface } from './SideMenuInterfaces';
 export const SideMenu: React.FC<SideMenuInterface> = props => {
 	const router = useRouter();
 	const textStyles = 'mt-5 text-gray-500 pl-3 ';
-	const { loading, error, data } = useQuery(GET_ME_PLAYLISTS);
+	const { loading, error, data } = useQuery(GET_ME_PLAYLISTS, { pollInterval: 500 });
 	/**
 	 * For some reason this button takes up the whole width of the screen and then anywhere you click, the menu opens
 	 */
