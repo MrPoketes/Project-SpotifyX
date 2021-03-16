@@ -32,10 +32,8 @@ export const AlbumContainer: React.FC<AlbumContainer> = props => {
 						{props.releaseDate.substring(0, 4)}
 					</h1>
 					<h1 className="text-5xl mt-1">{props.name}</h1>
-					<div className="mt-20 flex">
-						<button className="mr-3">
-							<FollowCheck id={props.id} />
-						</button>
+					<div className="mt-16 flex">
+						<FollowCheck id={props.id} />
 						<button>
 							<HorizontalDotsIcon />
 						</button>

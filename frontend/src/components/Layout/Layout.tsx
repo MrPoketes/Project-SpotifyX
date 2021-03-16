@@ -1,6 +1,7 @@
 import { useQuery } from '@apollo/client';
 import React, { useState } from 'react';
 import { GET_ME_DATA } from '../../queries/userQuery';
+import { Player } from '../Player/Player';
 import { SideMenu } from '../SideMenu/SideMenu';
 import { TopNavigation } from '../TopNavigation/TopNavigation';
 
@@ -28,6 +29,7 @@ export const Layout: React.FC = ({ children }) => {
 						/>
 						<div className="ml-5">{children}</div>
 					</div>
+					<Player />
 				</div>
 			)}
 		</>
