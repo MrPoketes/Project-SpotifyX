@@ -9,15 +9,16 @@ interface FollowCheckInterface {
 	id: string;
 }
 export const FollowCheck: React.FC<FollowCheckInterface> = props => {
-	const { loading: loadingC, error: errorC, data: check } = useQuery(
-		CHECK_SAVED_ALBUMS,
-		{
-			variables: { ids: props.id }
-		}
-	);
-	const [saveAlbum, { data: save }] = useMutation(SAVE_ALBUM);
+	const { data: check } = useQuery(CHECK_SAVED_ALBUMS, {
+		variables: { ids: props.id }
+	});
+	const [saveAlbum] = useMutation(SAVE_ALBUM, {
+		refetchQueries: [{ query: CHECK_SAVED_ALBUMS, variables: { ids: props.id } }]
+	});
 
-	const [removeAlbum, { data: remove }] = useMutation(REMOVE_ALBUM);
+	const [removeAlbum] = useMutation(REMOVE_ALBUM, {
+		refetchQueries: [{ query: CHECK_SAVED_ALBUMS, variables: { ids: props.id } }]
+	});
 	return (
 		<Button
 			className="bg-gray-700 border mr-2 border-white"

@@ -13,24 +13,17 @@ import {
 import { useQuery } from '@apollo/client';
 import { ItemCarousel } from '../components/ItemCarousel/ItemCarousel';
 import { LoadingIcon } from '../components/Icons/Icons';
+import { CardArtistText } from '../components/Card/helpers/CardArtistText';
 
 export default function Home() {
-	const { loading: loadingRP, error: errorRP, data: recentlyPlayed } = useQuery(
-		GET_RECENTLY_PLAYED
-	);
-	const { loading: loadingNR, error: errorNR, data: newReleases } = useQuery(
-		GET_NEW_RELEASES
-	);
-	const {
-		loading: loadingFP,
-		error: errorFP,
-		data: featuredPlaylists
-	} = useQuery(GET_FEATURED_PLAYLISTS, { variables: { country: '' } });
-	const {
-		loading: loadingTA,
-		error: errorTA,
-		data: topArtists
-	} = useQuery(GET_TOP_ARTISTS_OR_TRACKS, { variables: { type: 'artists' } });
+	const { data: recentlyPlayed } = useQuery(GET_RECENTLY_PLAYED);
+	const { data: newReleases } = useQuery(GET_NEW_RELEASES);
+	const { data: featuredPlaylists } = useQuery(GET_FEATURED_PLAYLISTS, {
+		variables: { country: '' }
+	});
+	const { data: topArtists } = useQuery(GET_TOP_ARTISTS_OR_TRACKS, {
+		variables: { type: 'artists' }
+	});
 
 	return (
 		<div className="pb-10">
@@ -46,11 +39,17 @@ export default function Home() {
 									{recentlyPlayed.getRecentlyPlayed.map(
 										(track, i) => (
 											<Card
-												albumId={track.track.album.id}
+												showControls={true}
 												key={i}
 												header={track.track.name}
-												artists={track.track.artists}
 												image={track.track.album.images[0].url}
+												href="/album/[album]"
+												asHref={`/album/${track.track.album.id}`}
+												artistText={
+													<CardArtistText
+														artists={track.track.artists}
+													/>
+												}
 											/>
 										)
 									)}
@@ -66,11 +65,17 @@ export default function Home() {
 								<ItemCarousel noToShow={6} noToScrool={2}>
 									{newReleases.getNewReleases.map((release, i) => (
 										<Card
-											albumId={release.id}
+											showControls={true}
 											key={i}
 											header={release.name}
 											image={release.images[0].url}
-											artists={release.artists}
+											artistText={
+												<CardArtistText
+													artists={release.artists}
+												/>
+											}
+											href="/album/[album]"
+											asHref={`/album/${release.id}`}
 										/>
 									))}
 								</ItemCarousel>
@@ -86,11 +91,12 @@ export default function Home() {
 									{featuredPlaylists.getFeaturedPlaylists.map(
 										(playlist, i) => (
 											<Card
+												showControls={true}
 												key={i}
 												header={playlist.name}
-												artists={[]}
 												image={playlist.images[0].url}
-												playlistId={playlist.id}
+												href="/playlist/[playlist]"
+												asHref={`/playlist/${playlist.id}`}
 											/>
 										)
 									)}
@@ -108,12 +114,13 @@ export default function Home() {
 										topArtists.getTopArtistsTracks
 									).items.map((item, i) => (
 										<Card
-											artistId={item.id}
+											showControls={true}
 											isArtist={true}
 											key={i}
 											header={item.name}
-											artists={[]}
 											image={item.images[0].url}
+											href="/artist/[artist]"
+											asHref={`/artist/${item.id}`}
 										/>
 									))}
 								</ItemCarousel>

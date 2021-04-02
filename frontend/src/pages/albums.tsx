@@ -5,8 +5,7 @@ import { Layout } from '../components/Layout/Layout';
 import { GET_SAVED_ALBUMS } from '../queries/savedQuery';
 
 export default function Albums() {
-	const { loading, error, data } = useQuery(GET_SAVED_ALBUMS);
-
+	const { data } = useQuery(GET_SAVED_ALBUMS);
 	return (
 		<div>
 			<Head>
@@ -24,10 +23,11 @@ export default function Albums() {
 									{data.getSavedAlbums.map((album, i) => (
 										<div className="mb-5" key={i}>
 											<Card
+												showControls={true}
+												href="/album/[album]"
+												asHref={`/album/${album.album.id}`}
 												image={album.album.images[0].url}
 												header={album.album.name}
-												artists={album.album.artists}
-												albumId={album.album.id}
 											/>
 										</div>
 									))}

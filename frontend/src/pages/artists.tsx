@@ -5,7 +5,7 @@ import { Layout } from '../components/Layout/Layout';
 import { GET_SAVED_ARTISTS } from '../queries/savedQuery';
 
 export default function Artists() {
-	const { loading, error, data } = useQuery(GET_SAVED_ARTISTS);
+	const { data } = useQuery(GET_SAVED_ARTISTS);
 
 	return (
 		<div>
@@ -24,11 +24,12 @@ export default function Artists() {
 									{data.getFollowedArtists.map((artist, i) => (
 										<div className="mb-5" key={i}>
 											<Card
+												showControls={true}
+												href="/artist/[artist]"
+												asHref={`/artist/${artist.id}`}
 												isArtist={true}
 												image={artist.images[0].url}
 												header={artist.name}
-												artists={[]}
-												artistId={artist.id}
 											/>
 										</div>
 									))}

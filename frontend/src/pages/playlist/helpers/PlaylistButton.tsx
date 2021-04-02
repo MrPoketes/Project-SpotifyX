@@ -1,14 +1,16 @@
 import React from 'react';
-import { PlusCircleIcon } from '../../../../components/Icons/Icons';
+import { PlusCircleIcon } from '../../../components/Icons/Icons';
 import Swal from 'sweetalert2';
 import { useMutation } from '@apollo/client';
-import { CREATE_PLAYLIST } from '../../../../queries/playlistQuery';
+import { CREATE_PLAYLIST, GET_ME_PLAYLISTS } from '../../../queries/playlistQuery';
 
 interface PlaylistButtonInterface {
 	id: string;
 }
 export const PlaylistButton: React.FC<PlaylistButtonInterface> = props => {
-	const [createPlaylist, { data }] = useMutation(CREATE_PLAYLIST);
+	const [createPlaylist] = useMutation(CREATE_PLAYLIST, {
+		refetchQueries: [{ query: GET_ME_PLAYLISTS }]
+	});
 	const handleClick = () => {
 		Swal.fire({
 			title: 'Create Playlist',
@@ -50,7 +52,7 @@ export const PlaylistButton: React.FC<PlaylistButtonInterface> = props => {
 
 	return (
 		<button
-			className="text-gray-500 hover:text-white mt-5 ml-4 flex font-semibold cursor-pointer"
+			className="text-gray-500 hover:text-white mt-5 flex font-semibold cursor-pointer"
 			onClick={() => handleClick()}
 		>
 			<PlusCircleIcon />

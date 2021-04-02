@@ -10,14 +10,11 @@ import { GET_ARTIST_ALBUMS } from '../../queries/songQuery';
 import { SimilarArtists } from './helpers/SimilarArtists';
 
 export default function Artist({ artist }) {
-	const { loading: loadingA, error: errorA, data: artistData } = useQuery(
-		GET_ARTIST,
-		{
-			variables: { id: artist }
-		}
-	);
+	const { data: artistData } = useQuery(GET_ARTIST, {
+		variables: { id: artist }
+	});
 
-	const { loading, error, data } = useQuery(GET_ARTIST_ALBUMS, {
+	const { data } = useQuery(GET_ARTIST_ALBUMS, {
 		variables: { id: artist }
 	});
 

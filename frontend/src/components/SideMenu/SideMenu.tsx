@@ -4,14 +4,16 @@ import { useRouter } from 'next/dist/client/router';
 import { useQuery } from '@apollo/client';
 import { GET_ME_PLAYLISTS } from '../../queries/playlistQuery';
 import { Scroller } from '../Scroller/Scroller';
-import { PlaylistButton } from '../../pages/playlist/helpers/helpers/PlaylistButton';
+import { PlaylistButton } from '../../pages/playlist/helpers/PlaylistButton';
 import { slide as Menu } from 'react-burger-menu';
 import { SideMenuInterface } from './SideMenuInterfaces';
+import Link from 'next/link';
 
 export const SideMenu: React.FC<SideMenuInterface> = props => {
 	const router = useRouter();
-	const textStyles = 'mt-5 text-gray-500 pl-3 ';
-	const { loading, error, data } = useQuery(GET_ME_PLAYLISTS, { pollInterval: 500 });
+	const textStyles = 'mt-5 text-gray-500 pl-3';
+	const buttonStyles = 'flex hover:text-white mt-5';
+	const { data } = useQuery(GET_ME_PLAYLISTS);
 	/**
 	 * For some reason this button takes up the whole width of the screen and then anywhere you click, the menu opens
 	 */
@@ -33,139 +35,112 @@ export const SideMenu: React.FC<SideMenuInterface> = props => {
 			outerContainerId="outer-container"
 			className="bg-trueGray-900 pt-3"
 		>
-			<div className="text-center">
-				<button
-					className="mt-1 text-gray-500 hover:text-white"
-					onClick={() => {
-						props.handleBurgerClick();
-					}}
-				>
-					<BurgerIcon className="w-8 h-8" />
-				</button>
-			</div>
+			<div className="ml-4 text-gray-500">
+				<div className="text-left">
+					<button
+						className="flex mt-1 hover:text-white"
+						onClick={() => props.handleBurgerClick()}
+					>
+						<BurgerIcon className="w-8 h-8" />
+					</button>
+				</div>
 
-			{/* Main navigation */}
-			<div className={router.route === '/home' ? 'text-white' : 'text-gray-500'}>
-				<button
-					className="ml-4 flex mt-1 hover:text-white"
-					onClick={() => router.push('/home')}
-				>
-					<HomeIcon />
-					<p className="ml-2 font-semibold">Home</p>
-				</button>
-			</div>
-			<div
-				className={router.route === '/browse' ? 'text-white' : 'text-gray-500'}
-			>
-				<button
-					className="ml-4 flex mt-5 hover:text-white"
-					onClick={() => router.push('/browse')}
-				>
-					<BrowseIcon />
-					<p className="ml-2 font-semibold">Browse</p>
-				</button>
-			</div>
-			<div className={router.route === '/radio' ? 'text-white' : 'text-gray-500'}>
-				<button
-					className="ml-4 flex mt-5 hover:text-white"
-					onClick={() => router.push('/radio')}
-				>
-					<RadioIcon />
-					<p className="ml-2 font-semibold">Radio</p>
-				</button>
-			</div>
-			{/* Your library navigation */}
-			<h3 className={textStyles}>Your library</h3>
-			<div
-				className={
-					router.route === '/made-for-you' ? 'text-white' : 'text-gray-500'
-				}
-			>
-				<button
-					className="ml-4 flex hover:text-white mt-5"
-					onClick={() => router.push('/made-for-you')}
-				>
-					<p className="font-semibold">Made for you</p>
-				</button>
-			</div>
-			<div
-				className={
-					router.route === '/recently-played' ? 'text-white' : 'text-gray-500'
-				}
-			>
-				<button
-					className="ml-4 flex hover:text-white mt-5"
-					onClick={() => router.push('/recently-played')}
-				>
-					<p className="font-semibold">Recently Played</p>
-				</button>
-			</div>
-			<div
-				className={
-					router.route === '/liked-songs' ? 'text-white' : 'text-gray-500'
-				}
-			>
-				<button
-					className="ml-4 flex hover:text-white mt-5"
-					onClick={() => router.push('/liked-songs')}
-				>
-					<p className="font-semibold">Liked Songs</p>
-				</button>
-			</div>
-			<div
-				className={router.route === '/albums' ? 'text-white' : 'text-gray-500'}
-			>
-				<button
-					className="ml-4 flex hover:text-white mt-5"
-					onClick={() => router.push('/albums')}
-				>
-					<p className="font-semibold">Albums</p>
-				</button>
-			</div>
-			<div
-				className={router.route === '/artists' ? 'text-white' : 'text-gray-500'}
-			>
-				<button
-					className="ml-4 flex hover:text-white mt-5"
-					onClick={() => router.push('/artists')}
-				>
-					<p className="font-semibold">Artists</p>
-				</button>
-			</div>
-			<div
-				className={
-					router.route === '/podcasts' ? 'text-white' : 'text-gray-500'
-				}
-			>
-				<button
-					className="ml-4 flex hover:text-white mt-5"
-					onClick={() => router.push('/podcasts')}
-				>
-					<p className="font-semibold">Podcasts</p>
-				</button>
-			</div>
-			{/* Playlists */}
-			<h3 className={textStyles}>Playlists</h3>
-			{data ? (
-				<Scroller>
-					{data.getCurrentUserPlaylists.map((playlist, i) => (
-						<button
-							key={i}
-							className="ml-4 flex hover:text-white mt-5 text-gray-500"
-							onClick={() => router.push(`/playlist/${playlist.id}`)}
-						>
-							<p className="font-semibold">
-								{playlist.name.length >= 16
-									? playlist.name.substring(0, 16) + '...'
-									: playlist.name}
-							</p>
+				{/* Main navigation */}
+				<div className={router.route === '/home' ? 'text-white' : ''}>
+					<Link href="/home">
+						<button className="flex mt-1 hover:text-white">
+							<HomeIcon />
+							<p className="ml-2 font-semibold">Home</p>
 						</button>
-					))}
-				</Scroller>
-			) : (
-				<div></div>
-			)}
-			<PlaylistButton id={props.id} />
+					</Link>
+				</div>
+				<div className={router.route === '/browse' ? 'text-white' : ''}>
+					<Link href="/browse">
+						<button className="flex mt-5 hover:text-white">
+							<BrowseIcon />
+							<p className="ml-2 font-semibold">Browse</p>
+						</button>
+					</Link>
+				</div>
+				<div className={router.route === '/radio' ? 'text-white' : ''}>
+					<Link href="/radio">
+						<button className="flex mt-5 hover:text-white">
+							<RadioIcon />
+							<p className="ml-2 font-semibold">Radio</p>
+						</button>
+					</Link>
+				</div>
+				{/* Your library navigation */}
+				<h3 className={textStyles}>Your library</h3>
+				<div className={router.route === '/made-for-you' ? 'text-white' : ''}>
+					<Link href="/made-for-you">
+						<button className={buttonStyles}>
+							<p className="font-semibold">Made for you</p>
+						</button>
+					</Link>
+				</div>
+				<div
+					className={router.route === '/recently-played' ? 'text-white' : ''}
+				>
+					<Link href="/recently-played">
+						<button className={buttonStyles}>
+							<p className="font-semibold">Recently Played</p>
+						</button>
+					</Link>
+				</div>
+				<div className={router.route === '/liked-songs' ? 'text-white' : ''}>
+					<Link href="/liked-songs">
+						<button className={buttonStyles}>
+							<p className="font-semibold">Liked Songs</p>
+						</button>
+					</Link>
+				</div>
+				<div className={router.route === '/albums' ? 'text-white' : ''}>
+					<Link href="/albums">
+						<button className={buttonStyles}>
+							<p className="font-semibold">Albums</p>
+						</button>
+					</Link>
+				</div>
+				<div className={router.route === '/artists' ? 'text-white' : ''}>
+					<Link href="/artists">
+						<button className={buttonStyles}>
+							<p className="font-semibold">Artists</p>
+						</button>
+					</Link>
+				</div>
+				<div className={router.route === '/podcasts' ? 'text-white' : ''}>
+					<Link href="/podcasts">
+						<button className={buttonStyles}>
+							<p className="font-semibold">Podcasts</p>
+						</button>
+					</Link>
+				</div>
+				{/* Playlists */}
+				<h3 className={textStyles}>Playlists</h3>
+				{data ? (
+					<Scroller>
+						{data.getCurrentUserPlaylists.map((playlist, i) => (
+							<Link
+								key={i}
+								href="/playlist/[playlist]"
+								as={`/playlist/${playlist.id}`}
+							>
+								<button className={buttonStyles}>
+									<p className="font-semibold">
+										{playlist.name.length >= 16
+											? playlist.name.substring(0, 16) + '...'
+											: playlist.name}
+									</p>
+								</button>
+							</Link>
+						))}
+					</Scroller>
+				) : (
+					<div></div>
+				)}
+				<PlaylistButton id={props.id} />
+			</div>
 		</Menu>
 	);
 };

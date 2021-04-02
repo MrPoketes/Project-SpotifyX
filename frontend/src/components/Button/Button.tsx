@@ -8,7 +8,11 @@ export const Button: React.FC<ButtonInterface> = props => {
 		: 'transform hover:scale-110';
 	return (
 		<button
-			onClick={() => props.onClick()}
+			onClick={() => {
+				if (props.onClick !== undefined) {
+					props.onClick();
+				}
+			}}
 			disabled={props.disabled}
 			className={`block rounded-full ${padding} font-medium tracking-wide uppercase text-sm text-white transition ease-in-out ${props.className}  focus:ring-4 ${disabled}`}
 		>

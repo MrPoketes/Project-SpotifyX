@@ -1,15 +1,22 @@
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import React from 'react';
 import { CHECK_FOLLOWS_ARTIST } from '../../queries/artistQuery';
+import { FOLLOW_ARTIST_USER, UNFOLLOW_ARTIST_USER } from '../../queries/followMutation';
 import { Button } from '../Button/Button';
 import { HeaderInterface } from './HeaderInterfaces';
 
 export const Header: React.FC<HeaderInterface> = props => {
-	const {
-		loading: loading,
-		error: error,
-		data: checkFollows
-	} = useQuery(CHECK_FOLLOWS_ARTIST, { variables: { id: props.id } });
+	const { loading, data: checkFollows } = useQuery(CHECK_FOLLOWS_ARTIST, {
+		variables: { id: props.id }
+	});
+
+	const [follow] = useMutation(FOLLOW_ARTIST_USER, {
+		refetchQueries: [{ query: CHECK_FOLLOWS_ARTIST, variables: { id: props.id } }]
+	});
+
+	const [unfollow] = useMutation(UNFOLLOW_ARTIST_USER, {
+		refetchQueries: [{ query: CHECK_FOLLOWS_ARTIST, variables: { id: props.id } }]
+	});
 
 	return (
 		<div className="relative">
@@ -20,7 +27,22 @@ export const Header: React.FC<HeaderInterface> = props => {
 				</div>
 				<div className="text-black flex">
 					<Button className="bg-green-500 mr-2">Play</Button>
-					<Button className="bg-gray-700 border border-white mr-2">
+					<Button
+						className="bg-gray-700 border border-white mr-2"
+						onClick={() => {
+							if (checkFollows && !loading) {
+								if (checkFollows.checkIfUserFollows[0]) {
+									unfollow({
+										variables: { id: props.id, type: 'artist' }
+									});
+								} else {
+									follow({
+										variables: { id: props.id, type: 'artist' }
+									});
+								}
+							}
+						}}
+					>
 						{checkFollows ? (
 							<>
 								{checkFollows.checkIfUserFollows[0]
@@ -34,10 +56,6 @@ export const Header: React.FC<HeaderInterface> = props => {
 					<Button circle className="bg-gray-700 border border-white">
 						...
 					</Button>
-					{/* <div>
-						<h1>Followers</h1>
-						<h1>{props.followers}</h1>
-					</div> */}
 				</div>
 				<div className="mt-2 flex">
 					<button

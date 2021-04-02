@@ -1,11 +1,11 @@
 export interface CardInterface {
 	image: string;
 	header: string;
-	artists: ArtistInterface[];
 	isArtist?: boolean;
-	artistId?: string;
-	playlistId?: string;
-	albumId?: string;
+	href: string;
+	asHref: string;
+	artistText?: JSX.Element;
+	showControls: boolean;
 }
 export interface ArtistInterface {
 	id: string;

@@ -1,11 +1,11 @@
 import { useQuery } from '@apollo/client';
 import Head from 'next/head';
-import { BrowseGenres } from '../components/BrowseComponents/BrowseGenres';
+import { BrowseGenres } from './genre/helpers/BrowseGenres';
 import { Layout } from '../components/Layout/Layout';
 import { GET_ME_DATA } from '../queries/userQuery';
 
 export default function Browse() {
-	const { loading: loadingMe, error: errorMe, data: meData } = useQuery(GET_ME_DATA);
+	const { data } = useQuery(GET_ME_DATA);
 	return (
 		<div>
 			<Head>
@@ -16,7 +16,7 @@ export default function Browse() {
 					<div className="text-4xl font-bold mt-10 mb-5">
 						<h1>Browse</h1>
 					</div>
-					{meData && <BrowseGenres country={meData.getMe.country} />}
+					{data && <BrowseGenres country={data.getMe.country} />}
 				</Layout>
 			</main>
 		</div>

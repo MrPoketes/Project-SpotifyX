@@ -6,7 +6,7 @@ import { Layout } from '../../components/Layout/Layout';
 import { GET_PLAYLIST } from '../../queries/playlistQuery';
 
 export default function Playlist({ playlist }) {
-	const { loading, error, data } = useQuery(GET_PLAYLIST, {
+	const { data } = useQuery(GET_PLAYLIST, {
 		variables: { id: playlist }
 	});
 	return (

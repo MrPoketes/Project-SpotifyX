@@ -3,7 +3,7 @@ import React from 'react';
 import { CHECK_SAVED_TRACKS } from '../../../queries/songQuery';
 import { HeartOutlinedIcon, HeartSolidIcon } from '../../Icons/Icons';
 import { REMOVE_TRACK, SAVE_TRACK } from '../../../queries/saveMutations';
-import { useRouter } from 'next/dist/client/router';
+import Link from 'next/link';
 
 interface ListBodyInterface {
 	type: 'playlist' | 'track';
@@ -12,28 +12,28 @@ interface ListBodyInterface {
 }
 
 export const ListBody: React.FC<ListBodyInterface> = props => {
-	const { loading, error, data } = useQuery(CHECK_SAVED_TRACKS, {
+	const { data } = useQuery(CHECK_SAVED_TRACKS, {
 		variables: { ids: props.id }
 	});
-	const router = useRouter();
 
-	const [saveTrack, { data: dataS }] = useMutation(SAVE_TRACK);
+	const [saveTrack] = useMutation(SAVE_TRACK, {
+		refetchQueries: [{ query: CHECK_SAVED_TRACKS, variables: { ids: props.id } }]
+	});
 
-	const [removeTrack, _] = useMutation(REMOVE_TRACK);
+	const [removeTrack] = useMutation(REMOVE_TRACK, {
+		refetchQueries: [{ query: CHECK_SAVED_TRACKS, variables: { ids: props.id } }]
+	});
 
 	return (
 		<tr className="border-b border-gray-600 hover:bg-gray-700">
 			{props.rowInfo.map((info, i) => {
 				if (props.type === 'playlist' && i === 3) {
 					return (
-						<td key={i}>
-							<h1
-								className="m-1 hover:underline"
-								onClick={() => router.push(`/album/${info.id}`)}
-							>
-								{info.name}
-							</h1>
-						</td>
+						<Link href="/album/[album]" as={`/album/${info.id}`} key={i}>
+							<td>
+								<h1 className="m-1 hover:underline">{info.name}</h1>
+							</td>
+						</Link>
 					);
 				} else if (props.type === 'playlist' && i === 2) {
 					return (
@@ -41,27 +41,27 @@ export const ListBody: React.FC<ListBodyInterface> = props => {
 							{info.artists.map((artist, j) => {
 								if (j === info.artists.length - 1) {
 									return (
-										<h1
+										<Link
 											key={j}
-											className="m-1 hover:underline"
-											onClick={() =>
-												router.push(`/artist/${artist.id}`)
-											}
+											href="/artist/[artist]"
+											as={`/artist/${artist.id}`}
 										>
-											{artist.name}
-										</h1>
+											<h1 key={j} className="m-1 hover:underline">
+												{artist.name}
+											</h1>
+										</Link>
 									);
 								}
 								return (
-									<h1
+									<Link
 										key={j}
-										className="m-1 hover:underline"
-										onClick={() =>
-											router.push(`/artist/${artist.id}`)
-										}
+										href="/artist/[artist]"
+										as={`/artist/${artist.id}`}
 									>
-										{artist.name},
-									</h1>
+										<h1 key={j} className="m-1 hover:underline">
+											{artist.name},
+										</h1>
+									</Link>
 								);
 							})}
 						</td>

@@ -7,8 +7,8 @@ import { TrackList } from '../../components/TrackList/TrackList';
 import { GET_ALBUM } from '../../queries/albumQuery';
 import { AlbumHeader } from './helpers/AlbumHeader';
 
-export default function Album({ album, name }) {
-	const { loading, error, data } = useQuery(GET_ALBUM, { variables: { id: album } });
+export default function Album({ album }) {
+	const { data } = useQuery(GET_ALBUM, { variables: { id: album } });
 
 	return (
 		<div>
@@ -44,6 +44,6 @@ export default function Album({ album, name }) {
 		</div>
 	);
 }
-Album.getInitialProps = ({ query: { album, name } }) => {
-	return { album, name };
+Album.getInitialProps = ({ query: { album } }) => {
+	return { album };
 };

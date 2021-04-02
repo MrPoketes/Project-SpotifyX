@@ -7,7 +7,7 @@ import { TrackList } from '../components/TrackList/TrackList';
 import { GET_SAVED_TRACKS } from '../queries/savedQuery';
 
 export default function LikedSongs() {
-	const { loading, error, data } = useQuery(GET_SAVED_TRACKS);
+	const { data } = useQuery(GET_SAVED_TRACKS);
 	let trackData = null;
 	if (data && data.getSavedTracks.length > 0) {
 		trackData = data.getSavedTracks.reduce((tracks, t) => {

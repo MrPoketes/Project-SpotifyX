@@ -13,8 +13,7 @@ export default function Authentication(props) {
 		if (parsed.access_token) {
 			props.addToken(parsed.access_token);
 			router.push('/home');
-		}
-		if (token !== '') {
+		} else if (token !== '') {
 			router.push('/home');
 		}
 	});

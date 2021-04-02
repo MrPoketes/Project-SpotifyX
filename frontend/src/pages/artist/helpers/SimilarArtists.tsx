@@ -6,7 +6,7 @@ interface SimilarArtistsInterface {
 	id: string;
 }
 export const SimilarArtists: React.FC<SimilarArtistsInterface> = props => {
-	const { loading, error, data } = useQuery(GET_RELATED, {
+	const { data } = useQuery(GET_RELATED, {
 		variables: { id: props.id }
 	});
 
@@ -17,10 +17,11 @@ export const SimilarArtists: React.FC<SimilarArtistsInterface> = props => {
 					{data.getArtistRelated.map((artist, i) => (
 						<div key={i} className="mb-10">
 							<Card
+								showControls={true}
+								href="/artist/[artist]"
+								asHref={`/artist/${artist.id}`}
 								header={artist.name}
-								artists={[]}
 								isArtist={true}
-								artistId={artist.id}
 								image={artist.images[0].url}
 							/>
 						</div>

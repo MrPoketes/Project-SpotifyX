@@ -6,11 +6,10 @@ import { Layout } from '../../components/Layout/Layout';
 import { GET_CATEGORY_PLAYLISTS } from '../../queries/browseQuery';
 
 export default function Genre({ genre, name, country }) {
-	const { loading, error, data } = useQuery(GET_CATEGORY_PLAYLISTS, {
+	const { data } = useQuery(GET_CATEGORY_PLAYLISTS, {
 		variables: { id: genre, country }
 	});
 
-	console.log(data);
 	return (
 		<div>
 			<Head>
@@ -26,10 +25,11 @@ export default function Genre({ genre, name, country }) {
 							{data.getCategoryPlaylists.map((playlist, i) => (
 								<div key={i} className="mb-5">
 									<Card
+										showControls={true}
+										href="/playlist/[playlist]"
+										asHref={`/playlist/${playlist.id}`}
 										image={playlist.images[0].url}
 										header={playlist.name}
-										artists={[]}
-										playlistId={playlist.id}
 									/>
 								</div>
 							))}

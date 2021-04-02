@@ -1,12 +1,11 @@
 import { useQuery } from '@apollo/client';
 import React, { useState } from 'react';
 import { GET_ME_DATA } from '../../queries/userQuery';
-import { Player } from '../Player/Player';
 import { SideMenu } from '../SideMenu/SideMenu';
 import { TopNavigation } from '../TopNavigation/TopNavigation';
 
 export const Layout: React.FC = ({ children }) => {
-	const { loading, error, data } = useQuery(GET_ME_DATA);
+	const { data } = useQuery(GET_ME_DATA);
 	const [open, setOpen] = useState(false);
 
 	const handleClick = () => {
@@ -27,9 +26,8 @@ export const Layout: React.FC = ({ children }) => {
 							image={data.getMe.images[0].url}
 							displayName={data.getMe.display_name}
 						/>
-						<div className="ml-5">{children}</div>
+						<div className="mx-5">{children}</div>
 					</div>
-					<Player />
 				</div>
 			)}
 		</>
