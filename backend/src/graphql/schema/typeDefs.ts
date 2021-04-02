@@ -1,4 +1,5 @@
 import { gql } from 'apollo-server-express';
+import Search from './Search';
 import Album from './Album';
 import Artist from './Artist';
 import AudioFeatures from './AudioFeatures';
@@ -87,9 +88,8 @@ const typeDefs = gql`
 		getPlaylist(id: String): Playlist
 		getPlaylistItems(id: String, market: String): String
 		getPlaylistCover(id: String): [Image]
-		# A search can give a lot of different objects.
-		# So we return a string and in frontend use JSON.parse to get an object
-		search(query: String, type: String): String
+
+		search(query: String): Search
 
 		getShows(ids: String): [Show]
 		getShow(id: String): Show
@@ -164,6 +164,7 @@ export default [
 	typeDefs,
 	Me,
 	Album,
+	Search,
 	Artist,
 	AudioFeatures,
 	Category,

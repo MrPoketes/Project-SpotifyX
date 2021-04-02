@@ -287,7 +287,7 @@ export const resolvers = {
 
 		search: (parent, args, ctx, info) => {
 			if (checkToken(ctx.accessToken)) {
-				return search.search(ctx.accessToken, args.query, args.type);
+				return search.search(ctx.accessToken, args.query);
 			}
 			return null;
 		},

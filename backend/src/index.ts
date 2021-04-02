@@ -107,6 +107,11 @@ app.get(
 	}
 );
 
+app.get('/getToken', (req, res) => {
+	const token = jsonfile.readFileSync('token.json');
+	res.send(token.accessToken);
+});
+
 app.use(cors());
 
 app.listen(PORT, () => {
