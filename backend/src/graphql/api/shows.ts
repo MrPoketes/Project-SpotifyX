@@ -15,5 +15,7 @@ export const getShowEpisodes = async (token: string, id: string) => {
 export const getShow = async (token: string, id: string) => {
 	const url = `https://api.spotify.com/v1/shows/${id}`;
 	const response = await getResponse(token, url);
-	return response.data;
+	const episodes = response.data.episodes.items;
+	const result = { ...response.data, episodes };
+	return result;
 };
