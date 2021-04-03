@@ -23,7 +23,11 @@ export const Layout: React.FC = ({ children }) => {
 					<div id="page-wrap" className="text-white">
 						<TopNavigation
 							handleBurgerClick={() => handleClick()}
-							image={data.getMe.images[0].url}
+							image={
+								data.getMe.images.length > 0
+									? data.getMe.images[0].url
+									: ''
+							}
 							displayName={data.getMe.display_name}
 						/>
 						<div className="mx-5">{children}</div>

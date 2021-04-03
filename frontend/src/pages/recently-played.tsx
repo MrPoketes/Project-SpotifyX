@@ -27,7 +27,11 @@ export default function RecentlyPlayed() {
 										href="/album/[album]"
 										asHref={`/album/${track.track.album.id}`}
 										header={track.track.name}
-										image={track.track.album.images[0].url}
+										image={
+											track.track.album.images.length > 0
+												? track.track.album.images[0].url
+												: ''
+										}
 										artistText={
 											<CardArtistText
 												artists={track.track.artists}

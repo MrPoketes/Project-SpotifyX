@@ -19,7 +19,11 @@ export const BrowseGenres: React.FC<BrowseGenresInterface> = props => {
 								showControls={false}
 								href="/genre/[genre]"
 								asHref={`/genre/${category.id}?name=${category.name}&country=${props.country}`}
-								image={category.icons[0].url}
+								image={
+									category.icons.length > 0
+										? category.icons[0].url
+										: ''
+								}
 								header={category.name}
 							/>
 						</div>

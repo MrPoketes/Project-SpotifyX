@@ -17,7 +17,11 @@ export const CardArtistText: React.FC<CardArtistsTextInterface> = props => {
 							as={`/artist/${artist.id}`}
 						>
 							<button className="font-medium">
-								<h1 className="hover:underline">{artist.name}</h1>
+								<h1 className="hover:underline">
+									{artist.name.length > 16
+										? artist.name.substring(0, 16) + '...'
+										: artist.name}
+								</h1>
 							</button>
 						</Link>
 					);
@@ -30,7 +34,9 @@ export const CardArtistText: React.FC<CardArtistsTextInterface> = props => {
 						>
 							<button className="font-medium">
 								<h1 className="hover:underline mr-2">
-									{artist.name + ','}
+									{artist.name.length > 16
+										? artist.name.substring(0, 16) + '... ,'
+										: artist.name + ','}
 								</h1>
 							</button>
 						</Link>

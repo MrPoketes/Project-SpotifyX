@@ -42,7 +42,12 @@ export default function Home() {
 												showControls={true}
 												key={i}
 												header={track.track.name}
-												image={track.track.album.images[0].url}
+												image={
+													track.track.album.images.length > 0
+														? track.track.album.images[0]
+																.url
+														: ''
+												}
 												href="/album/[album]"
 												asHref={`/album/${track.track.album.id}`}
 												artistText={
@@ -68,7 +73,11 @@ export default function Home() {
 											showControls={true}
 											key={i}
 											header={release.name}
-											image={release.images[0].url}
+											image={
+												release.images.length > 0
+													? release.images[0].url
+													: ''
+											}
 											artistText={
 												<CardArtistText
 													artists={release.artists}
@@ -94,7 +103,11 @@ export default function Home() {
 												showControls={true}
 												key={i}
 												header={playlist.name}
-												image={playlist.images[0].url}
+												image={
+													playlist.images.length > 0
+														? playlist.images[0].url
+														: ''
+												}
 												href="/playlist/[playlist]"
 												asHref={`/playlist/${playlist.id}`}
 											/>
@@ -118,7 +131,11 @@ export default function Home() {
 											isArtist={true}
 											key={i}
 											header={item.name}
-											image={item.images[0].url}
+											image={
+												item.images.length > 0
+													? item.images[0].url
+													: ''
+											}
 											href="/artist/[artist]"
 											asHref={`/artist/${item.id}`}
 										/>

@@ -37,7 +37,11 @@ export default function Artist({ artist }) {
 							isOverview={overview}
 							id={artist}
 							followers={artistData.getArtist.followers.total}
-							image={artistData.getArtist.images[0].url}
+							image={
+								artistData.getArtist.images.length > 0
+									? artistData.getArtist.images[0].url
+									: ''
+							}
 							name={artistData.getArtist.name}
 							type="Artist"
 						/>
@@ -49,7 +53,11 @@ export default function Artist({ artist }) {
 									{data.getArtistAlbums.map((album, i) => (
 										<AlbumContainer
 											key={i}
-											image={album.images[0].url}
+											image={
+												album.images.length > 0
+													? album.images[0].url
+													: ''
+											}
 											releaseDate={album.release_date}
 											name={album.name}
 											uri={album.uri}

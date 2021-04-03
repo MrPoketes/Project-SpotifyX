@@ -22,7 +22,9 @@ export const SimilarArtists: React.FC<SimilarArtistsInterface> = props => {
 								asHref={`/artist/${artist.id}`}
 								header={artist.name}
 								isArtist={true}
-								image={artist.images[0].url}
+								image={
+									artist.images.length > 0 ? artist.images[0].url : ''
+								}
 							/>
 						</div>
 					))}

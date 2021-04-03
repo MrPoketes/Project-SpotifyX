@@ -28,7 +28,11 @@ export default function Genre({ genre, name, country }) {
 										showControls={true}
 										href="/playlist/[playlist]"
 										asHref={`/playlist/${playlist.id}`}
-										image={playlist.images[0].url}
+										image={
+											playlist.images.length > 0
+												? playlist.images[0].url
+												: ''
+										}
 										header={playlist.name}
 									/>
 								</div>

@@ -26,7 +26,11 @@ export default function Albums() {
 												showControls={true}
 												href="/album/[album]"
 												asHref={`/album/${album.album.id}`}
-												image={album.album.images[0].url}
+												image={
+													album.album.images.length > 0
+														? album.album.images[0].url
+														: ''
+												}
 												header={album.album.name}
 											/>
 										</div>

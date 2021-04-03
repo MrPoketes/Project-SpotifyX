@@ -28,7 +28,11 @@ export default function Artists() {
 												href="/artist/[artist]"
 												asHref={`/artist/${artist.id}`}
 												isArtist={true}
-												image={artist.images[0].url}
+												image={
+													artist.images.length > 0
+														? artist.images[0].url
+														: ''
+												}
 												header={artist.name}
 											/>
 										</div>
