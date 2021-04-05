@@ -1,5 +1,6 @@
 import { useQuery } from '@apollo/client';
 import Head from 'next/head';
+import Link from 'next/link';
 import React from 'react';
 import { Card } from '../../components/Card/Card';
 import { Layout } from '../../components/Layout/Layout';
@@ -23,19 +24,23 @@ export default function Genre({ genre, name, country }) {
 					{data && (
 						<div className="grid grid-cols-6">
 							{data.getCategoryPlaylists.map((playlist, i) => (
-								<div key={i} className="mb-5">
-									<Card
-										showControls={true}
-										href="/playlist/[playlist]"
-										asHref={`/playlist/${playlist.id}`}
-										image={
-											playlist.images.length > 0
-												? playlist.images[0].url
-												: ''
-										}
-										header={playlist.name}
-									/>
-								</div>
+								<Link
+									key={i}
+									href="/playlist/[playlist]"
+									as={`/playlist/${playlist.id}`}
+								>
+									<div className="mb-5">
+										<Card
+											showControls={true}
+											image={
+												playlist.images.length > 0
+													? playlist.images[0].url
+													: ''
+											}
+											header={playlist.name}
+										/>
+									</div>
+								</Link>
 							))}
 						</div>
 					)}

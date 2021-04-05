@@ -1,5 +1,6 @@
 import { useQuery } from '@apollo/client';
 import Head from 'next/head';
+import Link from 'next/link';
 import { Card } from '../components/Card/Card';
 import { CardArtistText } from '../components/Card/helpers/CardArtistText';
 import { LoadingIcon } from '../components/Icons/Icons';
@@ -21,24 +22,28 @@ export default function RecentlyPlayed() {
 					{recentlyPlayed ? (
 						<div className="grid grid-cols-6">
 							{recentlyPlayed.getRecentlyPlayed.map((track, i) => (
-								<div className="mb-5" key={i}>
-									<Card
-										showControls={true}
-										href="/album/[album]"
-										asHref={`/album/${track.track.album.id}`}
-										header={track.track.name}
-										image={
-											track.track.album.images.length > 0
-												? track.track.album.images[0].url
-												: ''
-										}
-										artistText={
-											<CardArtistText
-												artists={track.track.artists}
-											/>
-										}
-									/>
-								</div>
+								<Link
+									key={i}
+									href="/album/[album]"
+									as={`/album/${track.track.album.id}`}
+								>
+									<div className="mb-5">
+										<Card
+											showControls={true}
+											header={track.track.name}
+											image={
+												track.track.album.images.length > 0
+													? track.track.album.images[0].url
+													: ''
+											}
+											artistText={
+												<CardArtistText
+													artists={track.track.artists}
+												/>
+											}
+										/>
+									</div>
+								</Link>
 							))}
 						</div>
 					) : (

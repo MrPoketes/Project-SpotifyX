@@ -1,5 +1,6 @@
 import { useQuery } from '@apollo/client';
 import Head from 'next/head';
+import Link from 'next/link';
 import { Card } from '../components/Card/Card';
 import { Layout } from '../components/Layout/Layout';
 import { GET_SAVED_ARTISTS } from '../queries/savedQuery';
@@ -22,20 +23,24 @@ export default function Artists() {
 							{data.getFollowedArtists.length > 0 ? (
 								<div className="grid grid-cols-6">
 									{data.getFollowedArtists.map((artist, i) => (
-										<div className="mb-5" key={i}>
-											<Card
-												showControls={true}
-												href="/artist/[artist]"
-												asHref={`/artist/${artist.id}`}
-												isArtist={true}
-												image={
-													artist.images.length > 0
-														? artist.images[0].url
-														: ''
-												}
-												header={artist.name}
-											/>
-										</div>
+										<Link
+											key={i}
+											href="/artist/[artist]"
+											as={`/artist/${artist.id}`}
+										>
+											<div className="mb-5">
+												<Card
+													showControls={true}
+													isArtist={true}
+													image={
+														artist.images.length > 0
+															? artist.images[0].url
+															: ''
+													}
+													header={artist.name}
+												/>
+											</div>
+										</Link>
 									))}
 								</div>
 							) : (

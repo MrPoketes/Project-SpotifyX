@@ -14,6 +14,7 @@ import { useQuery } from '@apollo/client';
 import { ItemCarousel } from '../components/ItemCarousel/ItemCarousel';
 import { LoadingIcon } from '../components/Icons/Icons';
 import { CardArtistText } from '../components/Card/helpers/CardArtistText';
+import Link from 'next/link';
 
 export default function Home() {
 	const { data: recentlyPlayed } = useQuery(GET_RECENTLY_PLAYED);
@@ -34,28 +35,37 @@ export default function Home() {
 				<Layout>
 					<MainSection header="Home">
 						<Section title="Recently Played">
-							{recentlyPlayed ? (
+							{recentlyPlayed &&
+							recentlyPlayed.getRecentlyPlayed.length > 0 ? (
 								<ItemCarousel noToShow={6} noToScrool={2}>
 									{recentlyPlayed.getRecentlyPlayed.map(
 										(track, i) => (
-											<Card
-												showControls={true}
+											<Link
 												key={i}
-												header={track.track.name}
-												image={
-													track.track.album.images.length > 0
-														? track.track.album.images[0]
-																.url
-														: ''
-												}
 												href="/album/[album]"
-												asHref={`/album/${track.track.album.id}`}
-												artistText={
-													<CardArtistText
-														artists={track.track.artists}
+												as={`/album/${track.track.album.id}`}
+											>
+												<div>
+													<Card
+														showControls={true}
+														header={track.track.name}
+														image={
+															track.track.album.images
+																.length > 0
+																? track.track.album
+																		.images[0].url
+																: ''
+														}
+														artistText={
+															<CardArtistText
+																artists={
+																	track.track.artists
+																}
+															/>
+														}
 													/>
-												}
-											/>
+												</div>
+											</Link>
 										)
 									)}
 								</ItemCarousel>
@@ -69,23 +79,29 @@ export default function Home() {
 							{newReleases ? (
 								<ItemCarousel noToShow={6} noToScrool={2}>
 									{newReleases.getNewReleases.map((release, i) => (
-										<Card
-											showControls={true}
+										<Link
 											key={i}
-											header={release.name}
-											image={
-												release.images.length > 0
-													? release.images[0].url
-													: ''
-											}
-											artistText={
-												<CardArtistText
-													artists={release.artists}
-												/>
-											}
 											href="/album/[album]"
-											asHref={`/album/${release.id}`}
-										/>
+											as={`/album/${release.id}`}
+										>
+											<div>
+												<Card
+													showControls={true}
+													key={i}
+													header={release.name}
+													image={
+														release.images.length > 0
+															? release.images[0].url
+															: ''
+													}
+													artistText={
+														<CardArtistText
+															artists={release.artists}
+														/>
+													}
+												/>
+											</div>
+										</Link>
 									))}
 								</ItemCarousel>
 							) : (
@@ -99,18 +115,24 @@ export default function Home() {
 								<ItemCarousel noToShow={6} noToScrool={2}>
 									{featuredPlaylists.getFeaturedPlaylists.map(
 										(playlist, i) => (
-											<Card
-												showControls={true}
+											<Link
 												key={i}
-												header={playlist.name}
-												image={
-													playlist.images.length > 0
-														? playlist.images[0].url
-														: ''
-												}
 												href="/playlist/[playlist]"
-												asHref={`/playlist/${playlist.id}`}
-											/>
+												as={`/playlist/${playlist.id}`}
+											>
+												<div>
+													<Card
+														showControls={true}
+														key={i}
+														header={playlist.name}
+														image={
+															playlist.images.length > 0
+																? playlist.images[0].url
+																: ''
+														}
+													/>
+												</div>
+											</Link>
 										)
 									)}
 								</ItemCarousel>
@@ -121,24 +143,32 @@ export default function Home() {
 							)}
 						</Section>
 						<Section title="Your Top Artists">
-							{topArtists ? (
+							{topArtists &&
+							JSON.parse(topArtists.getTopArtistsTracks).items.length >
+								0 ? (
 								<ItemCarousel noToShow={6} noToScrool={2}>
 									{JSON.parse(
 										topArtists.getTopArtistsTracks
 									).items.map((item, i) => (
-										<Card
-											showControls={true}
-											isArtist={true}
+										<Link
 											key={i}
-											header={item.name}
-											image={
-												item.images.length > 0
-													? item.images[0].url
-													: ''
-											}
 											href="/artist/[artist]"
-											asHref={`/artist/${item.id}`}
-										/>
+											as={`/artist/${item.id}`}
+										>
+											<div>
+												<Card
+													showControls={true}
+													isArtist={true}
+													key={i}
+													header={item.name}
+													image={
+														item.images.length > 0
+															? item.images[0].url
+															: ''
+													}
+												/>
+											</div>
+										</Link>
 									))}
 								</ItemCarousel>
 							) : (

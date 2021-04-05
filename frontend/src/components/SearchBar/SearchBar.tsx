@@ -1,7 +1,7 @@
 import { useRouter } from 'next/dist/client/router';
 import React, { BaseSyntheticEvent, useState } from 'react';
 
-export const SearchBar: React.FC<any> = props => {
+export const SearchBar: React.FC = () => {
 	const [search, setSearch] = useState('');
 
 	const router = useRouter();
