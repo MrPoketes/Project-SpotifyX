@@ -18,6 +18,7 @@ const Show = gql`
 		publisher: String
 		type: String
 		uri: String
+		total_episodes: Int
 	}
 `;
 export default Show;

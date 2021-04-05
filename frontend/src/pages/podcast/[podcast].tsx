@@ -1,17 +1,14 @@
 import { useQuery } from '@apollo/client';
 import Head from 'next/head';
 import React from 'react';
-import { Button } from '../../components/Button/Button';
-import { Header } from '../../components/Header/Header';
 import { Layout } from '../../components/Layout/Layout';
 import { GET_SHOW } from '../../queries/podcastQuery';
 import { PodcastEpisodeTable } from './helpers/PodcastEpisodeTable';
 import { PodcastHeader } from './helpers/PodcastHeader';
-// import { PodcastHeader } from './helpers/PodcastHeader';
 
 export default function Podcast({ podcast }) {
 	const { data } = useQuery(GET_SHOW, { variables: { id: podcast } });
-	console.log(data);
+
 	return (
 		<div>
 			<Head>

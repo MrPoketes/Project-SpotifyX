@@ -52,3 +52,20 @@ export const GET_SAVED_ARTISTS = gql`
 		}
 	}
 `;
+
+export const GET_SAVED_SHOWS = gql`
+	query getSavedShows {
+		getSavedShows {
+			show {
+				id
+				uri
+				name
+				description
+				total_episodes
+				images {
+					url
+				}
+			}
+		}
+	}
+`;
