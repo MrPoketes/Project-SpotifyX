@@ -11,7 +11,7 @@ import Link from 'next/link';
 
 export const SideMenu: React.FC<SideMenuInterface> = props => {
 	const router = useRouter();
-	const textStyles = 'mt-5 text-gray-500 pl-3';
+	const textStyles = 'mt-5 text-gray-500 underline text-xl';
 	const buttonStyles = 'flex hover:text-white mt-5';
 	const { data } = useQuery(GET_ME_PLAYLISTS);
 	/**

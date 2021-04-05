@@ -23,6 +23,8 @@ export const SimilarArtists: React.FC<SimilarArtistsInterface> = props => {
 						>
 							<div className="mb-10">
 								<Card
+									id={artist.id}
+									type="artist"
 									showControls={true}
 									header={artist.name}
 									isArtist={true}

@@ -1,6 +1,7 @@
 import React from 'react';
-import { HeartOutlinedIcon, HorizontalDotsIcon, PlayIcon } from '../Icons/Icons';
+import { HorizontalDotsIcon, PlayIcon } from '../Icons/Icons';
 import { CardInterface } from './CardInterfaces';
+import { FollowingButton } from './helpers/FollowingButton';
 
 export const Card: React.FC<CardInterface> = props => {
 	return (
@@ -14,11 +15,9 @@ export const Card: React.FC<CardInterface> = props => {
 							: 'transition ease-in-out w-80 h-80'
 					}
 				/>
-				{props.showControls && (
+				{props.showControls && props.type !== undefined && (
 					<div className="flex absolute cursor-default h-1/2 w-full justify-center top-1/3 card-buttons">
-						<button className="w-10 h-10 text-black mt-5">
-							<HeartOutlinedIcon className="w-10 h-10" />
-						</button>
+						<FollowingButton id={props.id} type={props.type} />
 						<button className="w-20 h-20 text-black">
 							<PlayIcon className="w-20 h-20" />
 						</button>

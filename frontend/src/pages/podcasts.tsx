@@ -28,6 +28,8 @@ export default function Podcasts() {
 								>
 									<div className="mb-5">
 										<Card
+											id={saved.show.id}
+											type="show"
 											showControls={true}
 											image={
 												saved.show.images.length > 0

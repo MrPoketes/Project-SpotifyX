@@ -4,6 +4,7 @@ export const GET_RECENTLY_PLAYED = gql`
 	query getRecentlyPlayed {
 		getRecentlyPlayed {
 			track {
+				id
 				href
 				name
 				uri

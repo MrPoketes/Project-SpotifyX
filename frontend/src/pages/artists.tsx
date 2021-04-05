@@ -30,6 +30,8 @@ export default function Artists() {
 										>
 											<div className="mb-5">
 												<Card
+													id={artist.id}
+													type="artist"
 													showControls={true}
 													isArtist={true}
 													image={

@@ -47,6 +47,8 @@ export default function Home() {
 											>
 												<div>
 													<Card
+														id={track.track.id}
+														type="track"
 														showControls={true}
 														header={track.track.name}
 														image={
@@ -86,6 +88,8 @@ export default function Home() {
 										>
 											<div>
 												<Card
+													id={release.id}
+													type="album"
 													showControls={true}
 													key={i}
 													header={release.name}
@@ -122,6 +126,8 @@ export default function Home() {
 											>
 												<div>
 													<Card
+														id={playlist.id}
+														type="playlist"
 														showControls={true}
 														key={i}
 														header={playlist.name}
@@ -157,6 +163,8 @@ export default function Home() {
 										>
 											<div>
 												<Card
+													id={item.id}
+													type="artist"
 													showControls={true}
 													isArtist={true}
 													key={i}

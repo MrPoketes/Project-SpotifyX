@@ -28,6 +28,7 @@ export const BrowseGenres: React.FC<BrowseGenresInterface> = props => {
 						>
 							<div className="mb-5">
 								<Card
+									id=""
 									showControls={false}
 									image={
 										category.icons.length > 0

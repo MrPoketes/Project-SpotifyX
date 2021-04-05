@@ -29,6 +29,8 @@ export default function Albums() {
 										>
 											<div className="mb-5">
 												<Card
+													id={album.album.id}
+													type="album"
 													showControls={true}
 													image={
 														album.album.images.length > 0

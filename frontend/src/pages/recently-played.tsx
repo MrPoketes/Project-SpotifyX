@@ -29,6 +29,8 @@ export default function RecentlyPlayed() {
 								>
 									<div className="mb-5">
 										<Card
+											id={track.track.album.id}
+											type="track"
 											showControls={true}
 											header={track.track.name}
 											image={

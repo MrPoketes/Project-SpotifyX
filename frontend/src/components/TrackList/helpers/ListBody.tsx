@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from '@apollo/client';
 import React from 'react';
-import { CHECK_SAVED_TRACKS } from '../../../queries/songQuery';
+import { CHECK_SAVED_TRACKS } from '../../../queries/checkFollowsQueries';
 import { HeartOutlinedIcon, HeartSolidIcon } from '../../Icons/Icons';
 import { REMOVE_TRACK, SAVE_TRACK } from '../../../queries/saveMutations';
 import Link from 'next/link';

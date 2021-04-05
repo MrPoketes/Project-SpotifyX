@@ -31,6 +31,8 @@ export default function Genre({ genre, name, country }) {
 								>
 									<div className="mb-5">
 										<Card
+											id={playlist.id}
+											type="playlist"
 											showControls={true}
 											image={
 												playlist.images.length > 0

@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from '@apollo/client';
 import React from 'react';
-import { CHECK_FOLLOWS_ARTIST } from '../../../queries/artistQuery';
+import { CHECK_FOLLOWS_ARTIST } from '../../../queries/checkFollowsQueries';
 import {
 	FOLLOW_ARTIST_USER,
 	UNFOLLOW_ARTIST_USER

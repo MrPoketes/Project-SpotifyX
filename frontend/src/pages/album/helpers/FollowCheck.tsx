@@ -3,7 +3,7 @@ import React from 'react';
 import { Button } from '../../../components/Button/Button';
 import { HeartOutlinedIcon, HeartSolidIcon } from '../../../components/Icons/Icons';
 import { REMOVE_ALBUM, SAVE_ALBUM } from '../../../queries/saveMutations';
-import { CHECK_SAVED_ALBUMS } from '../../../queries/songQuery';
+import { CHECK_SAVED_ALBUMS } from '../../../queries/checkFollowsQueries';
 
 interface FollowCheckInterface {
 	id: string;
