@@ -12,10 +12,14 @@ interface SearchResultInterface {
 
 export const SearchResult: React.FC<SearchResultInterface> = props => {
 	const type = props.type === 'track' ? 'album' : props.type;
+	const isArtist = props.type === 'artist';
 	return (
 		<Link href={`/${type}/[${type}]`} as={`/${type}/${props.id}`}>
 			<div className="flex m-2 p-1 hover:bg-gray-700">
-				<img className="w-16 h-16" src={props.image} />
+				<img
+					className={isArtist ? 'rounded-full w-16 h-16' : 'w-16 h-16'}
+					src={props.image}
+				/>
 				<div className="ml-5 mt-2">
 					<h1>
 						{props.title.length > 25

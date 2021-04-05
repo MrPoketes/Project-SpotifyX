@@ -32,7 +32,9 @@ export const SearchResultCategory: React.FC<SearchResulCategoryInterface> = prop
 		<div className="mr-5">
 			<div className="ml-4  flex justify-between my-3 ">
 				<h1 className="font-semibold text-xl">{props.title}</h1>
-				<h1 className="font-semibold text-xl hover:underline">See all</h1>
+				<button>
+					<h1 className="font-semibold text-xl hover:underline">See all</h1>
+				</button>
 			</div>
 			<hr className="border-gray-500" />
 			<div className="grid grid-cols-2">
