@@ -1,95 +1,17 @@
-import { useMutation, useQuery } from '@apollo/client';
 import React from 'react';
-import { CHECK_FOLLOWS_ARTIST } from '../../queries/artistQuery';
-import { FOLLOW_ARTIST_USER, UNFOLLOW_ARTIST_USER } from '../../queries/followMutation';
-import { Button } from '../Button/Button';
 import { HeaderInterface } from './HeaderInterfaces';
 
 export const Header: React.FC<HeaderInterface> = props => {
-	const { loading, data: checkFollows } = useQuery(CHECK_FOLLOWS_ARTIST, {
-		variables: { id: props.id }
-	});
-
-	const [follow] = useMutation(FOLLOW_ARTIST_USER, {
-		refetchQueries: [{ query: CHECK_FOLLOWS_ARTIST, variables: { id: props.id } }]
-	});
-
-	const [unfollow] = useMutation(UNFOLLOW_ARTIST_USER, {
-		refetchQueries: [{ query: CHECK_FOLLOWS_ARTIST, variables: { id: props.id } }]
-	});
-
 	return (
-		<div className="relative">
-			<div className="absolute bottom-2 left-5">
-				<div className="mb-5">
-					<h1 className="text-3xl">{props.type}</h1>
-					<h1 className="text-7xl font-bold">{props.name}</h1>
-				</div>
-				<div className="text-black flex">
-					<Button className="bg-green-500 mr-2">Play</Button>
-					<Button
-						className="bg-gray-700 border border-white mr-2"
-						onClick={() => {
-							if (checkFollows && !loading) {
-								if (checkFollows.checkIfUserFollows[0]) {
-									unfollow({
-										variables: { id: props.id, type: 'artist' }
-									});
-								} else {
-									follow({
-										variables: { id: props.id, type: 'artist' }
-									});
-								}
-							}
-						}}
-					>
-						{checkFollows ? (
-							<>
-								{checkFollows.checkIfUserFollows[0]
-									? 'Following'
-									: 'Follow'}
-							</>
-						) : (
-							'Follow'
-						)}
-					</Button>
-					<Button circle className="bg-gray-700 border border-white">
-						...
-					</Button>
-				</div>
-				<div className="mt-2 flex">
-					<button
-						className={
-							props.isOverview
-								? 'border-b-4 border-green-600 uppercase font-medium mr-6'
-								: 'uppercase font-medium mr-6'
-						}
-						onClick={() => {
-							props.handleChange(true);
-						}}
-					>
-						Overview
-					</button>
-					<button
-						className={
-							!props.isOverview
-								? 'border-b-4 border-green-600 uppercase font-medium mr-6'
-								: 'uppercase font-medium mr-6'
-						}
-						onClick={() => {
-							props.handleChange(false);
-						}}
-					>
-						Fans also like
-					</button>
-				</div>
+		<div className="flex">
+			<img className="h-56 w-56" src={props.image} />
+			<div className="mt-6 ml-6 text-left">
+				<h1 className="text-gray-200 font-bold text-lg uppercase">
+					{props.title}
+				</h1>
+				<h1 className="text-5xl mt-2">{props.name}</h1>
+				{props.children}
 			</div>
-			<div
-				className="w-full h-96 bg-cover bg-center"
-				style={{
-					backgroundImage: `url(${props.image})`
-				}}
-			/>
 		</div>
 	);
 };

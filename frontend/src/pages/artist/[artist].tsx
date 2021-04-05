@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client';
 import Head from 'next/head';
 import { useState } from 'react';
 import { AlbumContainer } from '../album/helpers/AlbumContainer';
-import { Header } from '../../components/Header/Header';
+import { ArtistHeader } from './helpers/ArtistHeader';
 import { Layout } from '../../components/Layout/Layout';
 import { Section } from '../../components/Section/Section';
 import { GET_ARTIST } from '../../queries/artistQuery';
@@ -32,7 +32,7 @@ export default function Artist({ artist }) {
 			<main>
 				<Layout>
 					{artistData && (
-						<Header
+						<ArtistHeader
 							handleChange={cond => handleViewChange(cond)}
 							isOverview={overview}
 							id={artist}
