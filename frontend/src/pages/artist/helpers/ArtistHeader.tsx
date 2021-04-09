@@ -19,15 +19,15 @@ interface ArtistHeaderInterface {
 
 export const ArtistHeader: React.FC<ArtistHeaderInterface> = props => {
 	const { loading, data: checkFollows } = useQuery(CHECK_FOLLOWS_ARTIST, {
-		variables: { id: props.id }
+		variables: { ids: props.id }
 	});
 
 	const [follow] = useMutation(FOLLOW_ARTIST_USER, {
-		refetchQueries: [{ query: CHECK_FOLLOWS_ARTIST, variables: { id: props.id } }]
+		refetchQueries: [{ query: CHECK_FOLLOWS_ARTIST, variables: { ids: props.id } }]
 	});
 
 	const [unfollow] = useMutation(UNFOLLOW_ARTIST_USER, {
-		refetchQueries: [{ query: CHECK_FOLLOWS_ARTIST, variables: { id: props.id } }]
+		refetchQueries: [{ query: CHECK_FOLLOWS_ARTIST, variables: { ids: props.id } }]
 	});
 
 	return (

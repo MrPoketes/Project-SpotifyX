@@ -23,3 +23,15 @@ export const REMOVE_ALBUM = gql`
 		removeSavedAlbums(ids: $id)
 	}
 `;
+
+export const SAVE_SHOW = gql`
+	mutation saveShow($id: String!) {
+		saveShows(ids: $id)
+	}
+`;
+
+export const REMOVE_SHOW = gql`
+	mutation removeShow($id: String!) {
+		removeSavedShows(ids: $id)
+	}
+`;

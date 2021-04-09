@@ -11,3 +11,15 @@ export const UNFOLLOW_ARTIST_USER = gql`
 		unfollowArtistsUsers(ids: $id, type: $type)
 	}
 `;
+
+export const FOLLOW_PLAYLIST = gql`
+	mutation followPlaylist($id: String!) {
+		followPlaylist(id: $id)
+	}
+`;
+
+export const UNFOLLOW_PLAYLIST = gql`
+	mutation unfollowPlaylist($id: String!) {
+		unfollowPlaylist(id: $id)
+	}
+`;

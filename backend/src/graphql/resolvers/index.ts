@@ -206,9 +206,7 @@ export const resolvers = {
 		},
 		checkUsersSavedShows: (parent, args, ctx, info) => {
 			if (checkToken(ctx.accessToken)) {
-				// TODO: implement
-				return null;
-				// return actions.checkUsersSavedShows(ctx.accessToken, args.ids);
+				return library.checkSavedShows(ctx.accessToken, args.ids);
 			}
 			return null;
 		},
