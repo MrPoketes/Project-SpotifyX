@@ -2,7 +2,7 @@ import React from 'react';
 import { HorizontalDotsIcon, PlayIcon } from '../Icons/Icons';
 import { CardInterface } from './CardInterfaces';
 import { FollowingButton } from './helpers/FollowingButton';
-
+//
 export const Card: React.FC<CardInterface> = props => {
 	return (
 		<div className="mr-5">
